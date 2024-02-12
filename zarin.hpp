@@ -1,5 +1,6 @@
-#include "src/Application.hpp"
-#include "src/Layer.hpp"
-#include "src/Log.hpp"
+#include "src/Zarin/Application.hpp"
+#include "src/Zarin/Layer.hpp"
+#include "src/Zarin/Log.hpp"
+#include "src/ImGui/ImGuiLayer.hpp"
 
-#include "src/EntryPoint.hpp"
+#include "src/Zarin/EntryPoint.hpp"

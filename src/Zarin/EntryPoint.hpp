@@ -1,8 +1,7 @@
 #include "Log.hpp"
+// #include "windows.h"
 
 extern zrn::Application* zrn::CreateApplication();
-
-#define SDL_MAIN_HANDLED
 
 int main(int argc, char** argv) {
     zrn::Log::Init();
@@ -15,4 +14,5 @@ int main(int argc, char** argv) {
     auto app = zrn::CreateApplication();
     app->Run();
     delete app;
+    return 0;
 }

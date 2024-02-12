@@ -13,7 +13,7 @@ WindowsWindow::WindowsWindow(const WindowProps& props) {
 }
 
 WindowsWindow::~WindowsWindow() {
-    Shutdown();
+    // Shutdown();
 }
 
 void WindowsWindow::Init(const WindowProps& props) {
@@ -61,17 +61,17 @@ void WindowsWindow::Shutdown() {
     SDL_DestroyWindow(m_Window);
 
     // TODO: multiple window support
-    SDL_Quit();
+    // SDL_Quit();
 }
 
 void WindowsWindow::OnUpdate() {    
     SDL_Event event;
     while(SDL_PollEvent(&event) > 0) { }
 
-    SDL_SetRenderDrawColor(m_Renderer, 189, 215, 244, 255);
-    SDL_RenderClear(m_Renderer);
+    // SDL_SetRenderDrawColor(m_Renderer, 189, 215, 244, 255);
+    // SDL_RenderClear(m_Renderer);
 
-    SDL_RenderPresent(m_Renderer);
+    // SDL_RenderPresent(m_Renderer);
 }
 
 

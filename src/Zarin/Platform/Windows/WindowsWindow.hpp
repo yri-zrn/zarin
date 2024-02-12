@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Window.hpp"
+#include "Zarin/Window.hpp"
 
 #include <SDL2/SDL.h>
 #include <iostream>
@@ -24,6 +24,10 @@ public:
 
     void SetVSync(bool enabled) override;
     bool IsVSync() const override;
+
+    virtual void* GetWindowHandle() override {
+        return (void*)m_Window;
+    }
 
 private:
     virtual void Init(const WindowProps& props);
