@@ -1,0 +1,168 @@
+#include "WindowsInput.hpp"
+
+#include "Zarin/Application.hpp"
+
+#define SDL_MAIN_HANDLED
+#include <SDL2/SDL.h>
+
+namespace zrn {
+
+#define SDL_SWITCH_KEYCODE_TO_SCANCODE(x) case SDLK_##x: return SDL_SCANCODE_##x;
+
+// TODO: add all scancodes
+SDL_Scancode SDL_KeycodeToScancode(SDL_KeyCode keycode) {
+    switch(keycode) {
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(UNKNOWN)
+
+        case SDLK_a: return SDL_SCANCODE_A;
+        case SDLK_b: return SDL_SCANCODE_B;
+        case SDLK_c: return SDL_SCANCODE_C;
+        case SDLK_d: return SDL_SCANCODE_D;
+        case SDLK_e: return SDL_SCANCODE_E;
+        case SDLK_f: return SDL_SCANCODE_F;
+        case SDLK_g: return SDL_SCANCODE_G;
+        case SDLK_h: return SDL_SCANCODE_H;
+        case SDLK_i: return SDL_SCANCODE_I;
+        case SDLK_j: return SDL_SCANCODE_J;
+        case SDLK_k: return SDL_SCANCODE_K;
+        case SDLK_l: return SDL_SCANCODE_L;
+        case SDLK_m: return SDL_SCANCODE_M;
+        case SDLK_n: return SDL_SCANCODE_N;
+        case SDLK_o: return SDL_SCANCODE_O;
+        case SDLK_p: return SDL_SCANCODE_P;
+        case SDLK_q: return SDL_SCANCODE_Q;
+        case SDLK_r: return SDL_SCANCODE_R;
+        case SDLK_s: return SDL_SCANCODE_S;
+        case SDLK_t: return SDL_SCANCODE_T;
+        case SDLK_u: return SDL_SCANCODE_U;
+        case SDLK_v: return SDL_SCANCODE_V;
+        case SDLK_w: return SDL_SCANCODE_W;
+        case SDLK_x: return SDL_SCANCODE_X;
+        case SDLK_y: return SDL_SCANCODE_Y;
+        case SDLK_z: return SDL_SCANCODE_Z;
+
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(1)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(2)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(3)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(4)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(5)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(6)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(7)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(8)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(9)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(0)
+
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(RETURN)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(ESCAPE)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(BACKSPACE)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(TAB)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(SPACE)
+
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(MINUS)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(EQUALS)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(LEFTBRACKET)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(RIGHTBRACKET)
+
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(BACKSLASH)
+        // SDL_SWITCH_KEYCODE_TO_SCANCODE(NONUSHASH)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(SEMICOLON)
+        // SDL_SWITCH_KEYCODE_TO_SCANCODE(APOSTROPHE)
+        // SDL_SWITCH_KEYCODE_TO_SCANCODE(GRAVE)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(COMMA)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(PERIOD)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(SLASH)
+
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(CAPSLOCK)
+
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(F1)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(F2)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(F3)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(F4)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(F5)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(F6)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(F7)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(F8)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(F9)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(F10)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(F11)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(F12)
+
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(PRINTSCREEN)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(SCROLLLOCK)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(PAUSE)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(INSERT)
+
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(HOME)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(PAGEUP)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(DELETE)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(END)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(PAGEDOWN)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(RIGHT)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(LEFT)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(DOWN)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(UP)
+
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(NUMLOCKCLEAR)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(KP_DIVIDE)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(KP_MULTIPLY)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(KP_MINUS)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(KP_PLUS)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(KP_ENTER)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(KP_1)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(KP_2)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(KP_3)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(KP_4)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(KP_5)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(KP_6)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(KP_7)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(KP_8)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(KP_9)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(KP_0)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(KP_PERIOD)
+
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(LCTRL)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(LSHIFT)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(LALT)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(LGUI)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(RCTRL)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(RSHIFT)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(RALT)
+        SDL_SWITCH_KEYCODE_TO_SCANCODE(RGUI)
+        
+        default:
+            return SDL_SCANCODE_UNKNOWN;
+    }
+}
+
+Input* Input::s_Instance = new WindowsInput();
+
+bool WindowsInput::IsKeyPressedImpl(KeyCode keycode) {
+    const uint8_t* state = SDL_GetKeyboardState(nullptr);
+    if (!state) return false;
+    return (bool)state[SDL_KeycodeToScancode((SDL_KeyCode)keycode)];
+}
+
+bool WindowsInput::IsMouseButtonPressedImpl(MouseButton button) {
+    auto state = SDL_GetMouseState(nullptr, nullptr);
+    return state & SDL_BUTTON((int)button);
+}
+
+std::pair<float, float> WindowsInput::GetMousePositionImpl() {
+    int x, y;
+    SDL_GetMouseState(&x, &y);
+    return { x, y };
+}
+
+float WindowsInput::GetMouseXImpl() {
+    auto[x, y] = GetMousePositionImpl();
+    return x;
+}
+
+float WindowsInput::GetMouseYImpl() {
+    auto[x, y] = GetMousePositionImpl();
+    return y;
+}
+
+#undef SDL_SWITCH_KEYCODE_TO_SCANCODE
+
+} // namespace zrn 

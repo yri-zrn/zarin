@@ -1,4 +1,6 @@
 #include "WindowsWindow.hpp"
+#include "Zarin/Input/KeyCodes.hpp"
+#include "Zarin/Input/MouseCodes.hpp"
 
 namespace zrn {
 
@@ -53,7 +55,8 @@ void WindowsWindow::Init(const WindowProps& props) {
     SDL_AddEventWatch(KeyWatcher,               m_Window);
     SDL_AddEventWatch(MouseButtonWatcher,       m_Window);
     SDL_AddEventWatch(MouseWheelWatcher,        m_Window);
-    SDL_AddEventWatch(MouseMotionWatcher,        m_Window);
+    SDL_AddEventWatch(MouseMotionWatcher,       m_Window);
+    SDL_AddEventWatch(TextInputWatcher,         m_Window);
 }
 
 void WindowsWindow::Shutdown() {
@@ -68,10 +71,10 @@ void WindowsWindow::OnUpdate() {
     SDL_Event event;
     while(SDL_PollEvent(&event) > 0) { }
 
-    // SDL_SetRenderDrawColor(m_Renderer, 189, 215, 244, 255);
-    // SDL_RenderClear(m_Renderer);
+    SDL_SetRenderDrawColor(m_Renderer, 189, 215, 244, 255);
+    SDL_RenderClear(m_Renderer);
 
-    // SDL_RenderPresent(m_Renderer);
+    SDL_RenderPresent(m_Renderer);
 }
 
 
@@ -89,6 +92,7 @@ int WindowsWindow::WindowCloseEventWatcher(void* data, SDL_Event* event) {
     if (event->type == SDL_WINDOWEVENT
     &&  event->window.event == SDL_WINDOWEVENT_CLOSE
     &&  window == (SDL_Window*)data) {
+        // Should skip the event to remove it from stack?
         WindowData& data = *(WindowData*)SDL_GetWindowData(window, "Data");
         WindowCloseEvent e;
         data.EventCallback(e);
@@ -115,17 +119,32 @@ int WindowsWindow::KeyWatcher(void* data, SDL_Event* event) {
     SDL_Window* window = SDL_GetWindowFromID(event->window.windowID);
     if (event->type == SDL_KEYDOWN) {
         WindowData& data = *(WindowData*)SDL_GetWindowData(window, "Data");
-        int keycode = (int)event->key.keysym.sym;
+        KeyCode keycode = (KeyCode)event->key.keysym.sym;
+        KeyMod mod = (KeyMod)event->key.keysym.mod;
+
         int repeat_count = (int)event->key.repeat;
 
-        KeyPressedEvent e{ keycode, repeat_count };
+        KeyPressedEvent e{ keycode, mod, repeat_count };
         data.EventCallback(e);
     }
     else if (event->type == SDL_KEYUP) {
         WindowData& data = *(WindowData*)SDL_GetWindowData(window, "Data");
-        int keycode = (int)event->key.keysym.sym;
+        KeyCode keycode = (KeyCode)event->key.keysym.sym;
+        KeyMod mod = (KeyMod)event->key.keysym.mod;
 
-        KeyReleasedEvent e{ keycode };
+        KeyReleasedEvent e{ keycode, mod };
+        data.EventCallback(e);
+    }
+    return 0;
+}
+
+int WindowsWindow::TextInputWatcher(void* data, SDL_Event* event) {
+    SDL_Window* window = SDL_GetWindowFromID(event->window.windowID);
+    if (event->type == SDL_TEXTINPUT) {
+        WindowData& data = *(WindowData*)SDL_GetWindowData(window, "Data");
+        std::string text = event->text.text;
+
+        TextInputEvent e{ text };
         data.EventCallback(e);
     }
     return 0;
@@ -135,14 +154,14 @@ int WindowsWindow::MouseButtonWatcher(void* data, SDL_Event* event) {
     SDL_Window* window = SDL_GetWindowFromID(event->window.windowID);
     if (event->type == SDL_MOUSEBUTTONDOWN) {
         WindowData& data = *(WindowData*)SDL_GetWindowData(window, "Data");
-        int button = event->button.button;
+        MouseButton button = (MouseButton)event->button.button;
 
         MouseButtonPressedEvent e{ button };
         data.EventCallback(e);
     }
     else if (event->type == SDL_MOUSEBUTTONUP) {
         WindowData& data = *(WindowData*)SDL_GetWindowData(window, "Data");
-        int button = event->button.button;
+        MouseButton button = (MouseButton)event->button.button;
 
         MouseButtonReleasedEvent e{ button };
         data.EventCallback(e);

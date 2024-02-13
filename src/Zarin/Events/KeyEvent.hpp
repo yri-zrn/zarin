@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Event.hpp"
+#include "Zarin/Input/KeyCodes.hpp"
 
 #include <sstream>
 
@@ -8,27 +9,29 @@ namespace zrn {
 
 class KeyEvent : public Event {
 public:
-    inline int GetKeyCode() const { return m_KeyCode; }
+    inline KeyCode GetKeyCode() const { return m_KeyCode; }
+    inline KeyMod GetKeyMod() const { return m_KeyMod; }
 
     EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 
 protected:
-    KeyEvent(int keycode)
-    : m_KeyCode(keycode) { }
+    KeyEvent(KeyCode keycode, KeyMod mod)
+    : m_KeyCode(keycode), m_KeyMod(mod) { }
 
-    int m_KeyCode;
+    KeyCode m_KeyCode;
+    KeyMod m_KeyMod;
 };
 
 class KeyPressedEvent : public KeyEvent {
 public:
-    KeyPressedEvent(int keycode, int repeat_count)
-    : KeyEvent(keycode), m_RepeatCount(repeat_count) { }
+    KeyPressedEvent(KeyCode keycode, KeyMod mod, int repeat_count)
+    : KeyEvent(keycode, mod), m_RepeatCount(repeat_count) { }
 
     inline int GetRepeatCount() const { return m_RepeatCount; }
 
     std::string ToString() const override {
         std::stringstream ss;
-        ss << "KeyPressed: " << m_KeyCode << " (" << m_RepeatCount << " repeats)";
+        ss << "KeyPressed: " << m_KeyCode << " (" << m_KeyMod << " mod, " << m_RepeatCount << " repeats)";
         return ss.str();
     }
 
@@ -40,12 +43,12 @@ private:
 
 class KeyReleasedEvent : public KeyEvent {
 public:
-    KeyReleasedEvent(int keycode)
-    : KeyEvent(keycode) { }
+    KeyReleasedEvent(KeyCode keycode, KeyMod mod)
+    : KeyEvent(keycode, mod) { }
     
     std::string ToString() const override {
         std::stringstream ss;
-        ss << "KeyReleased: " << m_KeyCode;
+        ss << "KeyReleased: " << m_KeyCode << " (" << m_KeyMod << " mod)";
         return ss.str();
     }
 

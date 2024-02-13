@@ -3,6 +3,7 @@
 #include "Zarin/Core.hpp"
 
 #include <string>
+#include <sstream>
 #include <stdint.h>
 #include <functional>
 #include <iostream>
@@ -14,6 +15,7 @@ enum class EventType {
     WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
     AppTick, AppUpdate, AppRender,
     KeyPressed, KeyReleased,
+    TextInput, TextEdit,
     MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
 };
 

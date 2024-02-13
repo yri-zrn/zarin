@@ -2,9 +2,9 @@
 #include "Zarin/Application.hpp"
 
 //#define APP_USE_UNLIMITED_FRAME_RATE
-#ifdef _DEBUG
+// #ifdef _DEBUG
 #define APP_USE_VULKAN_DEBUG_REPORT
-#endif
+// #endif
 
 // Data
 static VkAllocationCallbacks*   g_Allocator = nullptr;
@@ -345,6 +345,260 @@ static void FramePresent(ImGui_ImplVulkanH_Window* wd)
     wd->SemaphoreIndex = (wd->SemaphoreIndex + 1) % wd->SemaphoreCount; // Now we can use the next set of semaphores
 }
 
+/*
+static ImGuiKey ZrnKeyCodeToImGuiKey(zrn::KeyCode keycode) {
+    switch (keycode) {
+        Unknown         
+        Return          
+        Escape          
+        Backspace       
+        Tab             
+        Space           
+        Exclaim         
+        Quotedbl        
+        Hash            
+        Percent         
+        Dollar          
+        Ampersand       
+        Quote           
+        LeftParen       
+        RightParen      
+        Asterisk        
+        Plus            
+        Comma           
+        Minus           
+        Period          
+        Slash           
+        D_0             
+        D_1             
+        D_2             
+        D_3             
+        D_4             
+        D_5             
+        D_6             
+        D_7             
+        D_8             
+        D_9             
+        Colon           
+        Semicolon       
+        Less            
+        Equals          
+        Greater         
+        Question        
+        At              
+        LeftBracket     
+        Backslash       
+        RightBracket    
+        Caret           
+        Underscore      
+        Backquote       
+        a               
+        b               
+        c               
+        d               
+        e               
+        f               
+        g               
+        h               
+        i               
+        j               
+        k               
+        l               
+        m               
+        n               
+        o               
+        p               
+        q               
+        r               
+        s               
+        t               
+        u               
+        v               
+        w               
+        x               
+        y               
+        z               
+        Capslock        
+        F1              
+        F2              
+        F3              
+        F4              
+        F5              
+        F6              
+        F7              
+        F8              
+        F9              
+        F10             
+        F11             
+        F12             
+        Printscreen     
+        Scrolllock      
+        Pause           
+        Insert          
+        Home            
+        Pageup          
+        Delete          
+        End             
+        Pagedown        
+        Right           
+        Left            
+        Down            
+        Up              
+        NumlockClear    
+        KP_Divide       
+        KP_Multiply     
+        KP_Minus        
+        KP_Plus         
+        KP_Enter        
+        KP_1            
+        KP_2            
+        KP_3            
+        KP_4            
+        KP_5            
+        KP_6            
+        KP_7            
+        KP_8            
+        KP_9            
+        KP_0            
+        KP_Period       
+        LeftControl     
+        LeftShift       
+        LeftAlt         
+        LeftGui         
+        RightControl    
+        RightShift      
+        RightAlt        
+        RightGui        
+    }
+}*/
+
+static ImGuiKey ImGui_ImplSDL2_KeycodeToImGuiKey(int keycode)
+{
+    switch (keycode)
+    {
+        case SDLK_TAB: return ImGuiKey_Tab;
+        case SDLK_LEFT: return ImGuiKey_LeftArrow;
+        case SDLK_RIGHT: return ImGuiKey_RightArrow;
+        case SDLK_UP: return ImGuiKey_UpArrow;
+        case SDLK_DOWN: return ImGuiKey_DownArrow;
+        case SDLK_PAGEUP: return ImGuiKey_PageUp;
+        case SDLK_PAGEDOWN: return ImGuiKey_PageDown;
+        case SDLK_HOME: return ImGuiKey_Home;
+        case SDLK_END: return ImGuiKey_End;
+        case SDLK_INSERT: return ImGuiKey_Insert;
+        case SDLK_DELETE: return ImGuiKey_Delete;
+        case SDLK_BACKSPACE: return ImGuiKey_Backspace;
+        case SDLK_SPACE: return ImGuiKey_Space;
+        case SDLK_RETURN: return ImGuiKey_Enter;
+        case SDLK_ESCAPE: return ImGuiKey_Escape;
+        case SDLK_QUOTE: return ImGuiKey_Apostrophe;
+        case SDLK_COMMA: return ImGuiKey_Comma;
+        case SDLK_MINUS: return ImGuiKey_Minus;
+        case SDLK_PERIOD: return ImGuiKey_Period;
+        case SDLK_SLASH: return ImGuiKey_Slash;
+        case SDLK_SEMICOLON: return ImGuiKey_Semicolon;
+        case SDLK_EQUALS: return ImGuiKey_Equal;
+        case SDLK_LEFTBRACKET: return ImGuiKey_LeftBracket;
+        case SDLK_BACKSLASH: return ImGuiKey_Backslash;
+        case SDLK_RIGHTBRACKET: return ImGuiKey_RightBracket;
+        case SDLK_BACKQUOTE: return ImGuiKey_GraveAccent;
+        case SDLK_CAPSLOCK: return ImGuiKey_CapsLock;
+        case SDLK_SCROLLLOCK: return ImGuiKey_ScrollLock;
+        case SDLK_NUMLOCKCLEAR: return ImGuiKey_NumLock;
+        case SDLK_PRINTSCREEN: return ImGuiKey_PrintScreen;
+        case SDLK_PAUSE: return ImGuiKey_Pause;
+        case SDLK_KP_0: return ImGuiKey_Keypad0;
+        case SDLK_KP_1: return ImGuiKey_Keypad1;
+        case SDLK_KP_2: return ImGuiKey_Keypad2;
+        case SDLK_KP_3: return ImGuiKey_Keypad3;
+        case SDLK_KP_4: return ImGuiKey_Keypad4;
+        case SDLK_KP_5: return ImGuiKey_Keypad5;
+        case SDLK_KP_6: return ImGuiKey_Keypad6;
+        case SDLK_KP_7: return ImGuiKey_Keypad7;
+        case SDLK_KP_8: return ImGuiKey_Keypad8;
+        case SDLK_KP_9: return ImGuiKey_Keypad9;
+        case SDLK_KP_PERIOD: return ImGuiKey_KeypadDecimal;
+        case SDLK_KP_DIVIDE: return ImGuiKey_KeypadDivide;
+        case SDLK_KP_MULTIPLY: return ImGuiKey_KeypadMultiply;
+        case SDLK_KP_MINUS: return ImGuiKey_KeypadSubtract;
+        case SDLK_KP_PLUS: return ImGuiKey_KeypadAdd;
+        case SDLK_KP_ENTER: return ImGuiKey_KeypadEnter;
+        case SDLK_KP_EQUALS: return ImGuiKey_KeypadEqual;
+        case SDLK_LCTRL: return ImGuiKey_LeftCtrl;
+        case SDLK_LSHIFT: return ImGuiKey_LeftShift;
+        case SDLK_LALT: return ImGuiKey_LeftAlt;
+        case SDLK_LGUI: return ImGuiKey_LeftSuper;
+        case SDLK_RCTRL: return ImGuiKey_RightCtrl;
+        case SDLK_RSHIFT: return ImGuiKey_RightShift;
+        case SDLK_RALT: return ImGuiKey_RightAlt;
+        case SDLK_RGUI: return ImGuiKey_RightSuper;
+        case SDLK_APPLICATION: return ImGuiKey_Menu;
+        case SDLK_0: return ImGuiKey_0;
+        case SDLK_1: return ImGuiKey_1;
+        case SDLK_2: return ImGuiKey_2;
+        case SDLK_3: return ImGuiKey_3;
+        case SDLK_4: return ImGuiKey_4;
+        case SDLK_5: return ImGuiKey_5;
+        case SDLK_6: return ImGuiKey_6;
+        case SDLK_7: return ImGuiKey_7;
+        case SDLK_8: return ImGuiKey_8;
+        case SDLK_9: return ImGuiKey_9;
+        case SDLK_a: return ImGuiKey_A;
+        case SDLK_b: return ImGuiKey_B;
+        case SDLK_c: return ImGuiKey_C;
+        case SDLK_d: return ImGuiKey_D;
+        case SDLK_e: return ImGuiKey_E;
+        case SDLK_f: return ImGuiKey_F;
+        case SDLK_g: return ImGuiKey_G;
+        case SDLK_h: return ImGuiKey_H;
+        case SDLK_i: return ImGuiKey_I;
+        case SDLK_j: return ImGuiKey_J;
+        case SDLK_k: return ImGuiKey_K;
+        case SDLK_l: return ImGuiKey_L;
+        case SDLK_m: return ImGuiKey_M;
+        case SDLK_n: return ImGuiKey_N;
+        case SDLK_o: return ImGuiKey_O;
+        case SDLK_p: return ImGuiKey_P;
+        case SDLK_q: return ImGuiKey_Q;
+        case SDLK_r: return ImGuiKey_R;
+        case SDLK_s: return ImGuiKey_S;
+        case SDLK_t: return ImGuiKey_T;
+        case SDLK_u: return ImGuiKey_U;
+        case SDLK_v: return ImGuiKey_V;
+        case SDLK_w: return ImGuiKey_W;
+        case SDLK_x: return ImGuiKey_X;
+        case SDLK_y: return ImGuiKey_Y;
+        case SDLK_z: return ImGuiKey_Z;
+        case SDLK_F1: return ImGuiKey_F1;
+        case SDLK_F2: return ImGuiKey_F2;
+        case SDLK_F3: return ImGuiKey_F3;
+        case SDLK_F4: return ImGuiKey_F4;
+        case SDLK_F5: return ImGuiKey_F5;
+        case SDLK_F6: return ImGuiKey_F6;
+        case SDLK_F7: return ImGuiKey_F7;
+        case SDLK_F8: return ImGuiKey_F8;
+        case SDLK_F9: return ImGuiKey_F9;
+        case SDLK_F10: return ImGuiKey_F10;
+        case SDLK_F11: return ImGuiKey_F11;
+        case SDLK_F12: return ImGuiKey_F12;
+        case SDLK_F13: return ImGuiKey_F13;
+        case SDLK_F14: return ImGuiKey_F14;
+        case SDLK_F15: return ImGuiKey_F15;
+        case SDLK_F16: return ImGuiKey_F16;
+        case SDLK_F17: return ImGuiKey_F17;
+        case SDLK_F18: return ImGuiKey_F18;
+        case SDLK_F19: return ImGuiKey_F19;
+        case SDLK_F20: return ImGuiKey_F20;
+        case SDLK_F21: return ImGuiKey_F21;
+        case SDLK_F22: return ImGuiKey_F22;
+        case SDLK_F23: return ImGuiKey_F23;
+        case SDLK_F24: return ImGuiKey_F24;
+        case SDLK_AC_BACK: return ImGuiKey_AppBack;
+        case SDLK_AC_FORWARD: return ImGuiKey_AppForward;
+    }
+    return ImGuiKey_None;
+}
+
 namespace zrn {
 
 ImGuiLayer::ImGuiLayer()
@@ -388,21 +642,23 @@ void ImGuiLayer::OnAttach() {
     // Create Framebuffers
     int w = Application::Get().GetWindow().GetWidth();
     int h = Application::Get().GetWindow().GetHeight();
-    SDL_GetWindowSize(m_WindowHandle, &w, &h);
     m_ImGuiWindowData = &g_MainWindowData;
     SetupVulkanWindow(m_ImGuiWindowData, surface, w, h);
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    ImGuiIO& io = ImGui::GetIO();
+    io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
+	io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
+    
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;       // Enable Multi-Viewport / Platform Windows
+
     //io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
     //io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
-
     // Setup Dear ImGui style
     // ImGui::StyleColorsDark();
     ImGui::StyleColorsLight();
@@ -438,7 +694,7 @@ void ImGuiLayer::OnDetach() {
     VkResult err = vkDeviceWaitIdle(g_Device);
     check_vk_result(err);
     ImGui_ImplVulkan_Shutdown();
-    ImGui_ImplSDL2_Shutdown();
+    // ImGui_ImplSDL2_Shutdown();
     ImGui::DestroyContext();
 
     CleanupVulkanWindow();
@@ -447,111 +703,176 @@ void ImGuiLayer::OnDetach() {
 
 void ImGuiLayer::OnUpdate() {
     ImGuiIO& io = ImGui::GetIO();
+    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+    io.DisplaySize = ImVec2(Application::Get().GetWindow().GetWidth(), Application::Get().GetWindow().GetHeight());
 
     // Our state
     bool show_demo_window = true;
     bool show_another_window = false;
-    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+    // ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 0.00f);
 
-    // Main loop
-    bool done = false;
-    while (!done)
+    // Poll and handle events (inputs, window resize, etc.)
+    // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
+    // - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application, or clear/overwrite your copy of the mouse data.
+    // - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application, or clear/overwrite your copy of the keyboard data.
+    // Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
+
+    // Resize swap chain?
+    if (g_SwapChainRebuild)
     {
-        // Poll and handle events (inputs, window resize, etc.)
-        // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
-        // - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application, or clear/overwrite your copy of the mouse data.
-        // - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application, or clear/overwrite your copy of the keyboard data.
-        // Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
-        SDL_Event event;
-        while (SDL_PollEvent(&event))
+        int width = Application::Get().GetWindow().GetWidth();
+        int height = Application::Get().GetWindow().GetHeight();
+        if (width > 0 && height > 0)
         {
-            ImGui_ImplSDL2_ProcessEvent(&event);
-            if (event.type == SDL_QUIT)
-                done = true;
+            ImGui_ImplVulkan_SetMinImageCount(g_MinImageCount);
+            ImGui_ImplVulkanH_CreateOrResizeWindow(g_Instance, g_PhysicalDevice, g_Device, &g_MainWindowData, g_QueueFamily, g_Allocator, width, height, g_MinImageCount);
+            g_MainWindowData.FrameIndex = 0;
+            g_SwapChainRebuild = false;
         }
-
-        // Resize swap chain?
-        if (g_SwapChainRebuild)
-        {
-            int width = Application::Get().GetWindow().GetWidth();
-            int height = Application::Get().GetWindow().GetHeight();
-            if (width > 0 && height > 0)
-            {
-                ImGui_ImplVulkan_SetMinImageCount(g_MinImageCount);
-                ImGui_ImplVulkanH_CreateOrResizeWindow(g_Instance, g_PhysicalDevice, g_Device, &g_MainWindowData, g_QueueFamily, g_Allocator, width, height, g_MinImageCount);
-                g_MainWindowData.FrameIndex = 0;
-                g_SwapChainRebuild = false;
-            }
-        }
-
-        // Start the Dear ImGui frame
-        ImGui_ImplVulkan_NewFrame();
-        ImGui_ImplSDL2_NewFrame();
-        ImGui::NewFrame();
-
-        // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-        if (show_demo_window)
-            ImGui::ShowDemoWindow(&show_demo_window);
-
-        // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
-        {
-            static float f = 0.0f;
-            static int counter = 0;
-
-            ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-
-            ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-            ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-            ImGui::Checkbox("Another Window", &show_another_window);
-
-            ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-            ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-
-            if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-                counter++;
-            ImGui::SameLine();
-            ImGui::Text("counter = %d", counter);
-
-            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
-            ImGui::End();
-        }
-
-        // 3. Show another simple window.
-        if (show_another_window)
-        {
-            ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-            ImGui::Text("Hello from another window!");
-            if (ImGui::Button("Close Me"))
-                show_another_window = false;
-            ImGui::End();
-        }
-
-        // Rendering
-        ImGui::Render();
-        ImDrawData* main_draw_data = ImGui::GetDrawData();
-        const bool main_is_minimized = (main_draw_data->DisplaySize.x <= 0.0f || main_draw_data->DisplaySize.y <= 0.0f);
-        m_ImGuiWindowData->ClearValue.color.float32[0] = clear_color.x * clear_color.w;
-        m_ImGuiWindowData->ClearValue.color.float32[1] = clear_color.y * clear_color.w;
-        m_ImGuiWindowData->ClearValue.color.float32[2] = clear_color.z * clear_color.w;
-        m_ImGuiWindowData->ClearValue.color.float32[3] = clear_color.w;
-        if (!main_is_minimized)
-            FrameRender(m_ImGuiWindowData, main_draw_data);
-
-        // Update and Render additional Platform Windows
-        if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-        {
-            ImGui::UpdatePlatformWindows();
-            ImGui::RenderPlatformWindowsDefault();
-        }
-
-        // Present Main Platform Window
-        if (!main_is_minimized)
-            FramePresent(m_ImGuiWindowData);
     }
+
+    // Start the Dear ImGui frame
+    ImGui_ImplVulkan_NewFrame();
+    ImGui_ImplSDL2_NewFrame();
+    ImGui::NewFrame();
+
+    if (show_demo_window)
+        ImGui::ShowDemoWindow(&show_demo_window);
+
+    // Rendering
+    ImGui::Render();
+    ImDrawData* main_draw_data = ImGui::GetDrawData();
+    const bool main_is_minimized = (main_draw_data->DisplaySize.x <= 0.0f || main_draw_data->DisplaySize.y <= 0.0f);
+    m_ImGuiWindowData->ClearValue.color.float32[0] = clear_color.x * clear_color.w;
+    m_ImGuiWindowData->ClearValue.color.float32[1] = clear_color.y * clear_color.w;
+    m_ImGuiWindowData->ClearValue.color.float32[2] = clear_color.z * clear_color.w;
+    m_ImGuiWindowData->ClearValue.color.float32[3] = clear_color.w;
+    if (!main_is_minimized)
+        FrameRender(m_ImGuiWindowData, main_draw_data);
+
+    // Update and Render additional Platform Windows
+    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    {
+        ImGui::UpdatePlatformWindows();
+        ImGui::RenderPlatformWindowsDefault();
+    }
+
+    // Present Main Platform Window
+    if (!main_is_minimized)
+        FramePresent(m_ImGuiWindowData);
 }
 
 void ImGuiLayer::OnEvent(Event& event) {
+    ZRN_TRACE("{0}", event);
+    
+    EventDispatcher dispatcher(event);
+    dispatcher.Dispatch<MouseButtonPressedEvent>(ZRN_BIND_EVENT_FN(ImGuiLayer::OnMouseButtonPressedEvent));
+    dispatcher.Dispatch<MouseButtonReleasedEvent>(ZRN_BIND_EVENT_FN(ImGuiLayer::OnMouseButtonReleasedEvent));
+    dispatcher.Dispatch<MouseMovedEvent>(ZRN_BIND_EVENT_FN(ImGuiLayer::OnMouseMovedEvent));
+    dispatcher.Dispatch<MouseScrolledEvent>(ZRN_BIND_EVENT_FN(ImGuiLayer::OnMouseScrolledEvent));
+    dispatcher.Dispatch<KeyPressedEvent>(ZRN_BIND_EVENT_FN(ImGuiLayer::OnKeyPressedEvent));
+    dispatcher.Dispatch<KeyReleasedEvent>(ZRN_BIND_EVENT_FN(ImGuiLayer::OnKeyReleasedEvent));
 
+    dispatcher.Dispatch<TextInputEvent>(ZRN_BIND_EVENT_FN(ImGuiLayer::OnTextInputEvent));
+    
+    // dispatcher.Dispatch<KeyTypedEvent>(ZRN_BIND_EVENT_FN(ImGuiLayer::OnKeyTypedEvent));
+
+    dispatcher.Dispatch<WindowResizeEvent>(ZRN_BIND_EVENT_FN(ImGuiLayer::OnWindowResizeEvent));
+}
+
+bool ImGuiLayer::OnMouseButtonPressedEvent(MouseButtonPressedEvent& e) {
+    ImGuiIO& io = ImGui::GetIO();
+    io.MouseDown[ImGui_ImplSDL2_KeycodeToImGuiKey((int)e.GetMouseButton())] = true;
+
+    return false;
+}
+
+bool ImGuiLayer::OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e) {
+    ImGuiIO& io = ImGui::GetIO();
+    io.MouseDown[ImGui_ImplSDL2_KeycodeToImGuiKey((int)e.GetMouseButton())] = false;
+
+    return false;
+}
+
+bool ImGuiLayer::OnMouseMovedEvent(MouseMovedEvent& e) {
+    ImGuiIO& io = ImGui::GetIO();
+
+    ImVec2 mouse_pos(e.GetX(), e.GetY());
+
+    // if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    // {
+    //     int window_x, window_y;
+    //     SDL_GetWindowPosition(SDL_GetWindowFromID(event->motion.windowID), &window_x, &window_y);
+    //     mouse_pos.x += window_x;
+    //     mouse_pos.y += window_y;
+    // }
+
+    // add touchscreen?
+    io.AddMouseSourceEvent(ImGuiMouseSource_Mouse);
+    io.AddMousePosEvent(mouse_pos.x, mouse_pos.y);
+
+    return false;
+}
+
+bool ImGuiLayer::OnMouseScrolledEvent(MouseScrolledEvent& e) {
+    ImGuiIO& io = ImGui::GetIO();
+    
+    // add touchscreen?
+    io.AddMouseSourceEvent(ImGuiMouseSource_Mouse);
+    io.AddMouseWheelEvent(-e.GetXOffset(), e.GetYOffset());
+
+    return false;
+}
+
+bool ImGuiLayer::OnKeyPressedEvent(KeyPressedEvent& e) {
+    ImGuiIO& io = ImGui::GetIO();
+
+    KeyMod mod = e.GetKeyMod();
+    io.AddKeyEvent(ImGuiMod_Ctrl,  mod & KeyMod::Ctrl);
+    io.AddKeyEvent(ImGuiMod_Shift, mod & KeyMod::Shift);
+    io.AddKeyEvent(ImGuiMod_Alt,   mod & KeyMod::Alt);
+    io.AddKeyEvent(ImGuiMod_Super, mod & KeyMod::Super);
+
+    ImGuiKey key = ImGui_ImplSDL2_KeycodeToImGuiKey((int)e.GetKeyCode());
+    io.AddKeyEvent(key, true);
+
+    return false;
+}
+
+bool ImGuiLayer::OnKeyReleasedEvent(KeyReleasedEvent& e) {
+    ImGuiIO& io = ImGui::GetIO();
+
+    ImGuiKey key = ImGui_ImplSDL2_KeycodeToImGuiKey((int)e.GetKeyCode());
+    io.AddKeyEvent(key, false);
+
+    io.AddKeyEvent(ImGuiMod_Ctrl,  key == ImGuiKey_LeftCtrl  || key == ImGuiKey_RightCtrl);
+    io.AddKeyEvent(ImGuiMod_Shift, key == ImGuiKey_LeftShift || key == ImGuiKey_RightShift);
+    io.AddKeyEvent(ImGuiMod_Alt,   key == ImGuiKey_LeftAlt   || key == ImGuiKey_RightAlt);
+    io.AddKeyEvent(ImGuiMod_Super, key == ImGuiKey_LeftSuper || key == ImGuiKey_RightSuper);
+
+    return false;
+}
+
+bool ImGuiLayer::OnTextInputEvent(TextInputEvent& e) {
+    ImGuiIO& io = ImGui::GetIO();
+    
+    io.AddInputCharactersUTF8(e.GetText().c_str());
+    return false;
+}
+
+bool ImGuiLayer::OnWindowResizeEvent(WindowResizeEvent& e) {
+    ImGuiIO& io = ImGui::GetIO();
+    
+    io.DisplaySize = ImVec2(e.GetWidth(), e.GetHeight());
+	io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
+    
+    if (ImGuiViewport* viewport = ImGui::FindViewportByPlatformHandle(Application::Get().GetWindow().GetWindowHandle()))
+    {
+        viewport->PlatformRequestResize = true;
+        return true;
+    }
+
+    return false;
 }
 
 } // namespace zrn

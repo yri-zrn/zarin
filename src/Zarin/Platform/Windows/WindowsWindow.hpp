@@ -1,7 +1,9 @@
 #pragma once
 
 #include "Zarin/Window.hpp"
+#include "Zarin/Platform/Windows/WindowsInput.hpp"
 
+#define SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>
 #include <iostream>
 
@@ -18,16 +20,12 @@ public:
     inline uint32_t GetHeight() const override { return m_Data.Height; }
 
     // Window attributes
-    inline void SetEventCallback(const EventCallbackFn& callback) override {
-        m_Data.EventCallback = callback;
-    }
+    inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 
     void SetVSync(bool enabled) override;
     bool IsVSync() const override;
 
-    virtual void* GetWindowHandle() override {
-        return (void*)m_Window;
-    }
+    inline virtual void* GetWindowHandle() const override { return (void*)m_Window; }
 
 private:
     virtual void Init(const WindowProps& props);
@@ -38,6 +36,7 @@ private:
     static int WindowCloseEventWatcher(void* data, SDL_Event* event);
     static int WindowResizeEventWatcher(void* data, SDL_Event* event);
     static int KeyWatcher(void* data, SDL_Event* event);
+    static int TextInputWatcher(void* data, SDL_Event* event);
     static int MouseButtonWatcher(void* data, SDL_Event* event);
     static int MouseWheelWatcher(void* data, SDL_Event* event);
     static int MouseMotionWatcher(void* data, SDL_Event* event);

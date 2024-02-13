@@ -1,6 +1,11 @@
 #pragma once
 
+#include "Zarin/Core.hpp"
 #include "Zarin/Layer.hpp"
+#include "Zarin/Events/ApplicationEvent.hpp"
+#include "Zarin/Events/KeyEvent.hpp"
+#include "Zarin/Events/MouseEvent.hpp"
+#include "Zarin/Events/TextEvent.hpp"
 
 #include "backends/imgui_impl_sdl2.h"
 #include "backends/imgui_impl_vulkan.h"
@@ -25,6 +30,16 @@ public:
     virtual void OnUpdate() override;
     virtual void OnEvent(Event& event) override;
     
+private:
+    bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& e);
+    bool OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e);
+    bool OnMouseMovedEvent(MouseMovedEvent& e);
+    bool OnMouseScrolledEvent(MouseScrolledEvent& e);
+    bool OnKeyPressedEvent(KeyPressedEvent& e);
+    bool OnKeyReleasedEvent(KeyReleasedEvent& e);
+    bool OnTextInputEvent(TextInputEvent& e);
+    bool OnWindowResizeEvent(WindowResizeEvent& e);
+
 private:
     SDL_Window* m_WindowHandle;
     ImGui_ImplVulkanH_Window* m_ImGuiWindowData;

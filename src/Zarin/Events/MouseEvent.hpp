@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Event.hpp"
+#include "Zarin/Input/MouseCodes.hpp"
 
 #include <sstream>
 
@@ -50,20 +51,20 @@ private:
 
 class MouseButtonEvent : public Event {
 public:
-    inline int GetMouseButton() const { return m_Button; }
+    inline MouseButton GetMouseButton() const { return m_Button; }
 
     EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 
 protected:
-    MouseButtonEvent(int button)
+    MouseButtonEvent(MouseButton button)
     : m_Button(button) { }
 
-    int m_Button;
+    MouseButton m_Button;
 };
 
 class MouseButtonPressedEvent : public MouseButtonEvent {
 public:
-    MouseButtonPressedEvent(int button)
+    MouseButtonPressedEvent(MouseButton button)
     : MouseButtonEvent(button) { }
 
     std::string ToString() const override {
@@ -77,7 +78,7 @@ public:
 
 class MouseButtonReleasedEvent : public MouseButtonEvent {
 public:
-    MouseButtonReleasedEvent(int button)
+    MouseButtonReleasedEvent(MouseButton button)
     : MouseButtonEvent(button) { }
 
     std::string ToString() const override {

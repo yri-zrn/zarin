@@ -1,6 +1,7 @@
 #include "Application.hpp"
-#include "Core.hpp"
+
 #include "Log.hpp"
+#include "Input/Input.hpp"
 
 #include <iostream>
 
@@ -29,6 +30,38 @@ void Application::Run() {
             layer->OnUpdate();
 
         m_Window->OnUpdate();
+
+        // IsKeyPressed(int keycode) { return s_Instance->IsKeyPressedImpl(keycode); }
+        // IsMouseButtonPressed(int button) { return s_Instance->IsMouseButtonPressedImpl(button);}
+
+        // auto[x, y] = Input::GetMousePosition();
+        // ZRN_TRACE("Mouse position: {0}, {1}", x, y);
+
+        // if (Input::IsMouseButtonPressed(Button::Left)) {
+        //     ZRN_TRACE("Left mouse button pressed");
+        // }
+        // if (Input::IsMouseButtonPressed(Button::Middle)) {
+        //     ZRN_TRACE("Middle mouse button pressed");
+        // }
+        // if (Input::IsMouseButtonPressed(Button::Right)) {
+        //     ZRN_TRACE("Right mouse button pressed");
+        // }
+        // if (Input::IsKeyPressed(Key::a)) {
+        //     ZRN_TRACE("Key \'a\' pressed");
+        // }
+        // if (Input::IsKeyPressed(Key::D_1)) {
+        //     ZRN_TRACE("Key \'1\' pressed");
+        // }
+        // if (Input::IsKeyPressed(Key::Space)) {
+        //     ZRN_TRACE("Key \'Space\' pressed");
+        // }
+        // if (Input::IsKeyPressed(Key::KP_Period)) {
+        //     ZRN_TRACE("Key \'KP_Period\' pressed");
+        // }
+        // if (Input::IsKeyPressed(Key::Minus)) {
+        //     ZRN_TRACE("Key \'Minus\' pressed");
+        // }
+        
     }
 }
 

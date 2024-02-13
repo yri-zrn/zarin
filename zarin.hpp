@@ -2,5 +2,6 @@
 #include "src/Zarin/Layer.hpp"
 #include "src/Zarin/Log.hpp"
 #include "src/ImGui/ImGuiLayer.hpp"
+#include "src/Zarin/Input/Input.hpp"
 
 #include "src/Zarin/EntryPoint.hpp"
