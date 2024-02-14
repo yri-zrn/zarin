@@ -2,21 +2,6 @@
 
 #include "Zarin/Core.hpp"
 #include "Zarin/Layer.hpp"
-#include "Zarin/Events/ApplicationEvent.hpp"
-#include "Zarin/Events/KeyEvent.hpp"
-#include "Zarin/Events/MouseEvent.hpp"
-#include "Zarin/Events/TextEvent.hpp"
-
-#include "backends/imgui_impl_sdl2.h"
-#include "backends/imgui_impl_vulkan.h"
-
-#include "imgui.h"
-#include <stdio.h>          // printf, fprintf
-#include <stdlib.h>         // abort
-#define SDL_MAIN_HANDLED
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_vulkan.h>
-#include <vulkan/vulkan.h>
 
 namespace zrn {
 
@@ -27,22 +12,13 @@ public:
 
     virtual void OnAttach() override;
     virtual void OnDetach() override;
-    virtual void OnUpdate() override;
-    virtual void OnEvent(Event& event) override;
-    
-private:
-    bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& e);
-    bool OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e);
-    bool OnMouseMovedEvent(MouseMovedEvent& e);
-    bool OnMouseScrolledEvent(MouseScrolledEvent& e);
-    bool OnKeyPressedEvent(KeyPressedEvent& e);
-    bool OnKeyReleasedEvent(KeyReleasedEvent& e);
-    bool OnTextInputEvent(TextInputEvent& e);
-    bool OnWindowResizeEvent(WindowResizeEvent& e);
+    virtual void OnImGuiRender() override;
+
+    void Begin();
+    void End();
 
 private:
-    SDL_Window* m_WindowHandle;
-    ImGui_ImplVulkanH_Window* m_ImGuiWindowData;
+    float m_Time = 0.0f; 
 };
 
 } // namespace zrn

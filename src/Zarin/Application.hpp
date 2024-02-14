@@ -5,6 +5,7 @@
 #include "Events/Event.hpp"
 #include "Window.hpp"
 #include "LayerStack.hpp"
+#include "ImGui/ImGuiLayer.hpp"
 
 namespace zrn {
 
@@ -28,6 +29,7 @@ private:
     
     bool OnWindowClose(WindowCloseEvent& e);
 
+    ImGuiLayer* m_ImGuiLayer;
     std::unique_ptr<Window> m_Window;
     bool m_Running = true;
     LayerStack m_LayerStack;

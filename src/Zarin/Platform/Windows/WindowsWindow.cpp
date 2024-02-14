@@ -15,7 +15,7 @@ WindowsWindow::WindowsWindow(const WindowProps& props) {
 }
 
 WindowsWindow::~WindowsWindow() {
-    // Shutdown();
+    Shutdown();
 }
 
 void WindowsWindow::Init(const WindowProps& props) {
@@ -68,23 +68,13 @@ void WindowsWindow::Shutdown() {
 }
 
 void WindowsWindow::OnUpdate() {    
-    SDL_Event event;
-    while(SDL_PollEvent(&event) > 0) { }
+    // SDL_Event event;
+    // while(SDL_PollEvent(&event) > 0) { }
 
-    SDL_SetRenderDrawColor(m_Renderer, 189, 215, 244, 255);
-    SDL_RenderClear(m_Renderer);
+    // SDL_SetRenderDrawColor(m_Renderer, 189, 215, 244, 255);
+    // SDL_RenderClear(m_Renderer);
 
-    SDL_RenderPresent(m_Renderer);
-}
-
-
-
-void WindowsWindow::SetVSync(bool enabled) {
-
-}
-
-bool WindowsWindow::IsVSync() const {
-    return m_Data.VSync;
+    // SDL_RenderPresent(m_Renderer);
 }
 
 int WindowsWindow::WindowCloseEventWatcher(void* data, SDL_Event* event) {
@@ -92,7 +82,6 @@ int WindowsWindow::WindowCloseEventWatcher(void* data, SDL_Event* event) {
     if (event->type == SDL_WINDOWEVENT
     &&  event->window.event == SDL_WINDOWEVENT_CLOSE
     &&  window == (SDL_Window*)data) {
-        // Should skip the event to remove it from stack?
         WindowData& data = *(WindowData*)SDL_GetWindowData(window, "Data");
         WindowCloseEvent e;
         data.EventCallback(e);
@@ -117,7 +106,8 @@ int WindowsWindow::WindowResizeEventWatcher(void* data, SDL_Event* event) {
 
 int WindowsWindow::KeyWatcher(void* data, SDL_Event* event) {
     SDL_Window* window = SDL_GetWindowFromID(event->window.windowID);
-    if (event->type == SDL_KEYDOWN) {
+    if (event->type == SDL_KEYDOWN
+    &&  window == (SDL_Window*)data) {
         WindowData& data = *(WindowData*)SDL_GetWindowData(window, "Data");
         KeyCode keycode = (KeyCode)event->key.keysym.sym;
         KeyMod mod = (KeyMod)event->key.keysym.mod;
@@ -127,7 +117,8 @@ int WindowsWindow::KeyWatcher(void* data, SDL_Event* event) {
         KeyPressedEvent e{ keycode, mod, repeat_count };
         data.EventCallback(e);
     }
-    else if (event->type == SDL_KEYUP) {
+    else if (event->type == SDL_KEYUP
+    &&  window == (SDL_Window*)data) {
         WindowData& data = *(WindowData*)SDL_GetWindowData(window, "Data");
         KeyCode keycode = (KeyCode)event->key.keysym.sym;
         KeyMod mod = (KeyMod)event->key.keysym.mod;
@@ -140,7 +131,8 @@ int WindowsWindow::KeyWatcher(void* data, SDL_Event* event) {
 
 int WindowsWindow::TextInputWatcher(void* data, SDL_Event* event) {
     SDL_Window* window = SDL_GetWindowFromID(event->window.windowID);
-    if (event->type == SDL_TEXTINPUT) {
+    if (event->type == SDL_TEXTINPUT
+    &&  window == (SDL_Window*)data) {
         WindowData& data = *(WindowData*)SDL_GetWindowData(window, "Data");
         std::string text = event->text.text;
 
@@ -152,14 +144,16 @@ int WindowsWindow::TextInputWatcher(void* data, SDL_Event* event) {
 
 int WindowsWindow::MouseButtonWatcher(void* data, SDL_Event* event) {
     SDL_Window* window = SDL_GetWindowFromID(event->window.windowID);
-    if (event->type == SDL_MOUSEBUTTONDOWN) {
+    if (event->type == SDL_MOUSEBUTTONDOWN
+    &&  window == (SDL_Window*)data) {
         WindowData& data = *(WindowData*)SDL_GetWindowData(window, "Data");
         MouseButton button = (MouseButton)event->button.button;
 
         MouseButtonPressedEvent e{ button };
         data.EventCallback(e);
     }
-    else if (event->type == SDL_MOUSEBUTTONUP) {
+    else if (event->type == SDL_MOUSEBUTTONUP
+    &&  window == (SDL_Window*)data) {
         WindowData& data = *(WindowData*)SDL_GetWindowData(window, "Data");
         MouseButton button = (MouseButton)event->button.button;
 
@@ -171,7 +165,8 @@ int WindowsWindow::MouseButtonWatcher(void* data, SDL_Event* event) {
 
 int WindowsWindow::MouseWheelWatcher(void* data, SDL_Event* event) {
     SDL_Window* window = SDL_GetWindowFromID(event->window.windowID);
-    if (event->type == SDL_MOUSEWHEEL) {
+    if (event->type == SDL_MOUSEWHEEL
+    &&  window == (SDL_Window*)data) {
         WindowData& data = *(WindowData*)SDL_GetWindowData(window, "Data");
         float xOffset = event->wheel.preciseX;
         float yOffset = event->wheel.preciseY;
@@ -184,7 +179,8 @@ int WindowsWindow::MouseWheelWatcher(void* data, SDL_Event* event) {
 
 int WindowsWindow::MouseMotionWatcher(void* data, SDL_Event* event) {
     SDL_Window* window = SDL_GetWindowFromID(event->window.windowID);
-    if (event->type == SDL_MOUSEMOTION) {
+    if (event->type == SDL_MOUSEMOTION
+    &&  window == (SDL_Window*)data) {
         WindowData& data = *(WindowData*)SDL_GetWindowData(window, "Data");
         float x = event->motion.x;
         float y = event->motion.y;

@@ -22,7 +22,7 @@ public:
 
 private:
     std::vector<Layer*> m_Layers;
-    std::vector<Layer*>::iterator m_LayerInsert;
+    uint32_t m_LayerInsertIndex = 0;
 };
 
 } // namespace zrn

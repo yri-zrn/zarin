@@ -137,8 +137,7 @@ enum class ScanCode : uint32_t {
     DOWN               = 81,
     UP                 = 82,
 
-    NUMLOCKCLEAR       = 83, /**< num lock on PC, clear on Mac keyboards
-                              */
+    NUMLOCKCLEAR       = 83, /**< num lock on PC, clear on Mac keyboards*/
     KP_DIVIDE          = 84,
     KP_MULTIPLY        = 85,
     KP_MINUS           = 86,
@@ -184,16 +183,16 @@ enum class ScanCode : uint32_t {
     F23                = 114,
     F24                = 115,
     EXECUTE            = 116,
-    HELP               = 117,   /**< AL Integrated Help Center */
-    MENU               = 118,   /**< Menu (show menu) */
+    HELP               = 117, /**< AL Integrated Help Center */
+    MENU               = 118, /**< Menu (show menu) */
     SELECT             = 119,
-    STOP               = 120,   /**< AC Stop */
-    AGAIN              = 121,   /**< AC Redo/Repeat */
-    UNDO               = 122,   /**< AC Undo */
-    CUT                = 123,   /**< AC Cut */
-    COPY               = 124,   /**< AC Copy */
-    PASTE              = 125,   /**< AC Paste */
-    FIND               = 126,   /**< AC Find */
+    STOP               = 120, /**< AC Stop */
+    AGAIN              = 121, /**< AC Redo/Repeat */
+    UNDO               = 122, /**< AC Undo */
+    CUT                = 123, /**< AC Cut */
+    COPY               = 124, /**< AC Copy */
+    PASTE              = 125, /**< AC Paste */
+    FIND               = 126, /**< AC Find */
     MUTE               = 127,
     VOLUMEUP           = 128,
     VOLUMEDOWN         = 129,
@@ -221,9 +220,9 @@ enum class ScanCode : uint32_t {
     LANG8              = 151, /**< reserved */
     LANG9              = 152, /**< reserved */
 
-    ALTERASE           = 153,    /**< Erase-Eaze */
+    ALTERASE           = 153, /**< Erase-Eaze */
     SYSREQ             = 154,
-    CANCEL             = 155,      /**< AC Cancel */
+    CANCEL             = 155, /**< AC Cancel */
     CLEAR              = 156,
     PRIOR              = 157,
     RETURN2            = 158,
