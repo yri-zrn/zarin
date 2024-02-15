@@ -34,10 +34,10 @@ add_library(
         src/Zarin/Platform/Windows/WindowsInput.hpp
         src/Zarin/Platform/Windows/WindowsInput.cpp
 
-        dependencies/imgui/backends/imgui_impl_sdl2.cpp
         dependencies/imgui/backends/imgui_impl_sdl2.h
-        dependencies/imgui/backends/imgui_impl_vulkan.cpp
-        dependencies/imgui/backends/imgui_impl_vulkan.h
+        dependencies/imgui/backends/imgui_impl_sdl2.cpp
+        dependencies/imgui/backends/imgui_impl_opengl3.h
+        dependencies/imgui/backends/imgui_impl_opengl3.cpp
 
         src/ImGui/ImGuiLayer.hpp
         src/ImGui/ImGuiLayer.cpp
@@ -52,10 +52,8 @@ add_subdirectory(dependencies)
 
 find_package(spdlog CONFIG)
 find_package(SDL REQUIRED)
-find_package(Vulkan REQUIRED)
 find_package(glm REQUIRED)
-
-# find_package(imgui REQUIRED)
+find_package(OpenGL REQUIRED)
 
 target_link_libraries(
     zarin
@@ -63,11 +61,12 @@ target_link_libraries(
         SDL2main
         SDL2
         SDL2_image
-        Vulkan::Vulkan
+        ${OPENGL_LIBRARY}
         PUBLIC
         spdlog::spdlog
         imgui
         glm
+        glad
     )
 
 target_precompile_headers(zarin

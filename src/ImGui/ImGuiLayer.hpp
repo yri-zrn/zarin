@@ -18,7 +18,7 @@ public:
     void End();
 
 private:
-    float m_Time = 0.0f; 
+    float m_Time = 0.0f;
 };
 
 } // namespace zrn

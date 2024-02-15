@@ -30,7 +30,7 @@ void WindowsWindow::Init(const WindowProps& props) {
         s_SDL2_Initialized = true;
     }
 
-    auto window_flags = static_cast<SDL_WindowFlags>(SDL_WINDOW_VULKAN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+    auto window_flags = static_cast<SDL_WindowFlags>(SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
     m_Window = SDL_CreateWindow(
         props.Title.c_str(),
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -67,14 +67,9 @@ void WindowsWindow::Shutdown() {
     // SDL_Quit();
 }
 
-void WindowsWindow::OnUpdate() {    
+void WindowsWindow::OnUpdate() {
     // SDL_Event event;
     // while(SDL_PollEvent(&event) > 0) { }
-
-    // SDL_SetRenderDrawColor(m_Renderer, 189, 215, 244, 255);
-    // SDL_RenderClear(m_Renderer);
-
-    // SDL_RenderPresent(m_Renderer);
 }
 
 int WindowsWindow::WindowCloseEventWatcher(void* data, SDL_Event* event) {
