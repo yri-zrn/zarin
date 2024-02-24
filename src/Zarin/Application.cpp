@@ -1,11 +1,14 @@
 #include "Application.hpp"
 
-#include "Log.hpp"
 #include "Input/Input.hpp"
+#include "Zarin/Renderer/Renderer.hpp"
 
 #include <iostream>
 
 namespace zrn {
+
+#define DrawQuad
+#define DrawTris
 
 Application* Application::s_Instance = nullptr;
 
@@ -18,7 +21,7 @@ Application::Application() {
     m_Window = std::unique_ptr<Window>(Window::Create());
 
     m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
-
+    
     m_ImGuiLayer = new ImGuiLayer();
     PushOverlay(m_ImGuiLayer);
 }
@@ -29,6 +32,9 @@ Application::~Application() {
 
 void Application::Run() {
     while (m_Running) {
+        RenderCommand::SetClearColor({ 0.4f, 0.5f, 0.9, 1.0f });
+        RenderCommand::Clear();
+
         for (Layer* layer : m_LayerStack)
             layer->OnUpdate();
         

@@ -2,6 +2,12 @@
 #include "Zarin/Input/KeyCodes.hpp"
 #include "Zarin/Input/MouseCodes.hpp"
 
+#include "Zarin/Platform/OpenGL/OpenGLContext.hpp"
+
+#define SDL_MAIN_HANDLED
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_opengl.h>
+
 namespace zrn {
 
 static bool s_SDL2_Initialized = false;
@@ -19,6 +25,7 @@ WindowsWindow::~WindowsWindow() {
 }
 
 void WindowsWindow::Init(const WindowProps& props) {
+
     m_Data.Title = props.Title;
     m_Data.Width = props.Width;
     m_Data.Height = props.Height;
@@ -31,43 +38,40 @@ void WindowsWindow::Init(const WindowProps& props) {
     }
 
     auto window_flags = static_cast<SDL_WindowFlags>(SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
-    m_Window = SDL_CreateWindow(
-        props.Title.c_str(),
-        SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-        props.Width, props.Height,
-        window_flags);
+    m_WindowHandle = SDL_CreateWindow(props.Title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, props.Width, props.Height, window_flags);
 
-    ZRN_CORE_ASSERT(m_Window != nullptr, "Failed to create SDL_Window");
+    ZRN_CORE_ASSERT(m_WindowHandle != nullptr, "Failed to create SDL_Window");
     
     auto renderer_flags = static_cast<SDL_RendererFlags>(SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
-    m_Renderer = SDL_CreateRenderer(
-        m_Window,
-        -1,
-        renderer_flags);
+    m_Renderer = SDL_CreateRenderer(m_WindowHandle, -1, renderer_flags);
 
     ZRN_CORE_ASSERT(m_Renderer != nullptr, "Failed to create SDL_Renderer");
 
-    SDL_SetWindowData(m_Window, "Data", &m_Data);
+    SDL_SetWindowData(m_WindowHandle, "Data", &m_Data);
+
+    m_Context = new OpenGLContext(m_WindowHandle);
+    m_Context->Init();
 
     // Register Event callbacks
-    SDL_AddEventWatch(WindowCloseEventWatcher,  m_Window);
-    SDL_AddEventWatch(WindowResizeEventWatcher, m_Window);
-    SDL_AddEventWatch(KeyWatcher,               m_Window);
-    SDL_AddEventWatch(MouseButtonWatcher,       m_Window);
-    SDL_AddEventWatch(MouseWheelWatcher,        m_Window);
-    SDL_AddEventWatch(MouseMotionWatcher,       m_Window);
-    SDL_AddEventWatch(TextInputWatcher,         m_Window);
+    SDL_AddEventWatch(WindowCloseEventWatcher,  m_WindowHandle);
+    SDL_AddEventWatch(WindowResizeEventWatcher, m_WindowHandle);
+    SDL_AddEventWatch(KeyWatcher,               m_WindowHandle);
+    SDL_AddEventWatch(MouseButtonWatcher,       m_WindowHandle);
+    SDL_AddEventWatch(MouseWheelWatcher,        m_WindowHandle);
+    SDL_AddEventWatch(MouseMotionWatcher,       m_WindowHandle);
+    SDL_AddEventWatch(TextInputWatcher,         m_WindowHandle);
 }
 
 void WindowsWindow::Shutdown() {
     SDL_DestroyRenderer(m_Renderer);
-    SDL_DestroyWindow(m_Window);
+    SDL_DestroyWindow(m_WindowHandle);
 
-    // TODO: multiple window support
-    // SDL_Quit();
+    SDL_Quit();
 }
 
 void WindowsWindow::OnUpdate() {
+    m_Context->SwapBuffers();
+    
     // SDL_Event event;
     // while(SDL_PollEvent(&event) > 0) { }
 }

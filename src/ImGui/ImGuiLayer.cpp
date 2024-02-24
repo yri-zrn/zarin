@@ -2,19 +2,13 @@
 
 #include "Zarin/Application.hpp"
 
-#include <glad/glad.h>
-
-#define SDL_MAIN_HANDLED
 #include "imgui.h"
 #include "backends/imgui_impl_sdl2.h"
 #include "backends/imgui_impl_opengl3.h"
 #include <stdio.h>
+#define SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>
-#if defined(IMGUI_IMPL_OPENGL_ES2)
-#include <SDL_opengles2.h>
-#else
 #include <SDL2/SDL_opengl.h>
-#endif
 
 // Dear ImGui: standalone example application for SDL2 + OpenGL
 // (SDL is a cross-platform general purpose library for handling windows, inputs, OpenGL/Vulkan/Metal graphics context creation, etc.)
@@ -91,11 +85,6 @@ void ImGuiLayer::OnAttach() {
     SDL_GL_MakeCurrent(window, g_gl_context);
     SDL_GL_SetSwapInterval(1); // Enable vsync
 
-    if (!gladLoadGLLoader((GLADloadproc) SDL_GL_GetProcAddress)) {
-        std::cout << "Failed to initialize OpenGL context" << std::endl;
-        return;
-    }
-
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -108,8 +97,7 @@ void ImGuiLayer::OnAttach() {
     //io.ConfigViewportsNoTaskBarIcon = true;
 
     // Setup Dear ImGui style
-    ImGui::StyleColorsDark();
-    //ImGui::StyleColorsLight();
+    ImGui::StyleColorsClassic();
 
     // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
     ImGuiStyle& style = ImGui::GetStyle();
@@ -151,8 +139,6 @@ void ImGuiLayer::OnDetach() {
     ImGui::DestroyContext();
 
     SDL_GL_DeleteContext(g_gl_context);
-    // SDL_DestroyWindow(window);
-    // SDL_Quit();
 }
 
 void ImGuiLayer::OnImGuiRender() {
@@ -181,13 +167,10 @@ void ImGuiLayer::End() {
     Application* app = &Application::Get();
     SDL_Window* window = (SDL_Window*)app->GetWindow().GetWindowHandle();
     ImGuiIO& io = ImGui::GetIO();
-    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
     
     // Rendering
     ImGui::Render();
     glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
-    glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
-    glClear(GL_COLOR_BUFFER_BIT);
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
     // Update and Render additional Platform Windows
@@ -201,8 +184,6 @@ void ImGuiLayer::End() {
         ImGui::RenderPlatformWindowsDefault();
         SDL_GL_MakeCurrent(backup_current_window, backup_current_context);
     }
-
-    SDL_GL_SwapWindow(window);
 }
 
 } // namespace zrn

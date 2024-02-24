@@ -2,10 +2,10 @@
 
 #include "Zarin/Window.hpp"
 #include "Zarin/Platform/Windows/WindowsInput.hpp"
+#include "Zarin/Renderer/GraphicsContext.hpp"
 
 #define SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>
-#include <iostream>
 
 namespace zrn {
 
@@ -22,7 +22,7 @@ public:
     // Window attributes
     inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 
-    inline virtual void* GetWindowHandle() const override { return (void*)m_Window; }
+    inline virtual void* GetWindowHandle() const override { return (void*)m_WindowHandle; }
 
 private:
     virtual void Init(const WindowProps& props);
@@ -39,8 +39,9 @@ private:
     static int MouseMotionWatcher(void* data, SDL_Event* event);
 
 private:
-    SDL_Window* m_Window;
+    SDL_Window* m_WindowHandle;
     SDL_Renderer* m_Renderer;
+    GraphicsContext* m_Context;
 
     struct WindowData {
         std::string Title;

@@ -4,7 +4,7 @@
 #define ZRN_ENABLE_ASSERTS
 
 #ifdef ZRN_ENABLE_ASSERTS
-#   define ZRN_ASSERT(x, ...) { if(!x(x)) { ZRN_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#   define ZRN_ASSERT(x, ...) { if(!(x)) { ZRN_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
 #   define ZRN_CORE_ASSERT(x, ...) { if(!(x)) { ZRN_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); }}
 #else
 #   define ZRN_ASSERT(x, ...)

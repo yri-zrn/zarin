@@ -6,39 +6,71 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_library(
     zarin STATIC
+        # main()
         src/Zarin/EntryPoint.hpp
         
+        # Application, layers, logging
         src/Zarin/Application.hpp
         src/Zarin/Log.hpp
         src/Zarin/Layer.hpp
         src/Zarin/LayerStack.hpp
-        
         src/Zarin/Application.cpp
         src/Zarin/Log.cpp
         src/Zarin/Layer.cpp
         src/Zarin/LayerStack.cpp
         
+        # Events
         src/Zarin/Events/Event.hpp
         src/Zarin/Events/ApplicationEvent.hpp
         src/Zarin/Events/MouseEvent.hpp
         src/Zarin/Events/KeyEvent.hpp
         src/Zarin/Events/TextEvent.hpp
         
+        # Window, Input polling
         src/Zarin/Window.hpp
         src/Zarin/Input/Input.hpp
         src/Zarin/Input/KeyCodes.hpp
         src/Zarin/Input/MouseCodes.hpp
 
+        # Renderer
+        src/Zarin/Renderer/GraphicsContext.hpp
+        src/Zarin/Renderer/Shader.hpp
+        src/Zarin/Renderer/Buffer.hpp
+        src/Zarin/Renderer/Renderer.hpp
+        src/Zarin/Renderer/VertexArray.hpp
+        src/Zarin/Renderer/RendererAPI.hpp
+        src/Zarin/Renderer/RenderCommand.hpp
+        src/Zarin/Renderer/Shader.cpp
+        src/Zarin/Renderer/Buffer.cpp
+        src/Zarin/Renderer/Renderer.cpp
+        src/Zarin/Renderer/VertexArray.cpp
+        src/Zarin/Renderer/RendererAPI.cpp
+        src/Zarin/Renderer/RenderCommand.cpp
+
+        
+        # OpenGL platform
+        src/Zarin/Platform/OpenGL/OpenGLContext.hpp
+        src/Zarin/Platform/OpenGL/OpenGLBuffer.hpp
+        src/Zarin/Platform/OpenGL/OpenGLVertexArray.hpp
+        src/Zarin/Platform/OpenGL/OpenGLContext.cpp
+        src/Zarin/Platform/OpenGL/OpenGLBuffer.cpp
+        src/Zarin/Platform/OpenGL/OpenGLVertexArray.cpp
+        src/Zarin/Platform/OpenGL/OpenGLRendererAPI.hpp
+        src/Zarin/Platform/OpenGL/OpenGLRendererAPI.cpp
+
+        # Windows platform
         src/Zarin/Platform/Windows/WindowsWindow.hpp
-        src/Zarin/Platform/Windows/WindowsWindow.cpp
         src/Zarin/Platform/Windows/WindowsInput.hpp
+        src/Zarin/Platform/Windows/WindowsWindow.cpp
         src/Zarin/Platform/Windows/WindowsInput.cpp
 
+        # ImGui backends
         dependencies/imgui/backends/imgui_impl_sdl2.h
-        dependencies/imgui/backends/imgui_impl_sdl2.cpp
         dependencies/imgui/backends/imgui_impl_opengl3.h
+        dependencies/imgui/backends/imgui_impl_sdl2.cpp
         dependencies/imgui/backends/imgui_impl_opengl3.cpp
 
+        # ImGui stuff
         src/ImGui/ImGuiLayer.hpp
         src/ImGui/ImGuiLayer.cpp
     )
@@ -50,9 +82,9 @@ target_include_directories(zarin
 
 add_subdirectory(dependencies)
 
-find_package(spdlog CONFIG)
-find_package(SDL REQUIRED)
-find_package(glm REQUIRED)
+find_package(spdlog REQUIRED)
+find_package(SDL    REQUIRED)
+find_package(glm    REQUIRED)
 find_package(OpenGL REQUIRED)
 
 target_link_libraries(
@@ -62,6 +94,7 @@ target_link_libraries(
         SDL2
         SDL2_image
         ${OPENGL_LIBRARY}
+        
         PUBLIC
         spdlog::spdlog
         imgui

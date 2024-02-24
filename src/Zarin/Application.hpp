@@ -5,7 +5,12 @@
 #include "Events/Event.hpp"
 #include "Window.hpp"
 #include "LayerStack.hpp"
+
 #include "ImGui/ImGuiLayer.hpp"
+
+#include "Zarin/Renderer/Shader.hpp"
+#include "Zarin/Renderer/Buffer.hpp"
+#include "Zarin/Renderer/VertexArray.hpp"
 
 namespace zrn {
 
@@ -26,9 +31,9 @@ public:
     inline static Application& Get() { return *s_Instance; }
 
 private:
-    
     bool OnWindowClose(WindowCloseEvent& e);
 
+private:
     ImGuiLayer* m_ImGuiLayer;
     std::unique_ptr<Window> m_Window;
     bool m_Running = true;
