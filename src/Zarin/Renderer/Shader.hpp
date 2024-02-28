@@ -1,19 +1,22 @@
 #pragma once
+
+#include "Zarin/Core.hpp"
+
 #include <string>
-#include <cstdint>
+
+#include <glm/glm.hpp>
 
 namespace zrn {
 
 class Shader {
 public:
-    Shader(const std::string& vertex_source, const std::string& fragment_source);
-    ~Shader();
+    virtual ~Shader() = default;
 
-    void Bind() const;
-    void Unbind() const;
+    virtual void Bind() const = 0;
+    virtual void Unbind() const = 0;
 
-private:
-    uint32_t m_RendererID;
+    static Ref<Shader> Create(const std::string& filepath);
+    static Ref<Shader> Create(const std::string& vertex_source, const std::string& fragment_source);
 };
 
 } // namespace zrn

@@ -10,7 +10,7 @@ class WindowsInput : public Input {
 protected:
     virtual bool IsKeyPressedImpl(KeyCode keycode) override;
     virtual bool IsMouseButtonPressedImpl(MouseButton keycode) override;
-    virtual std::pair<float, float> GetMousePositionImpl() override;
+    virtual glm::vec2 GetMousePositionImpl() override;
     virtual float GetMouseXImpl() override;
     virtual float GetMouseYImpl() override;
 };

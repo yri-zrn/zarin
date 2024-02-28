@@ -8,7 +8,7 @@ add_library(
     zarin STATIC
         # main()
         src/Zarin/EntryPoint.hpp
-        
+
         # Application, layers, logging
         src/Zarin/Application.hpp
         src/Zarin/Log.hpp
@@ -18,14 +18,17 @@ add_library(
         src/Zarin/Log.cpp
         src/Zarin/Layer.cpp
         src/Zarin/LayerStack.cpp
-        
+
+        # Core
+        src/Zarin/Core/Timestep.hpp
+
         # Events
         src/Zarin/Events/Event.hpp
         src/Zarin/Events/ApplicationEvent.hpp
         src/Zarin/Events/MouseEvent.hpp
         src/Zarin/Events/KeyEvent.hpp
         src/Zarin/Events/TextEvent.hpp
-        
+
         # Window, Input polling
         src/Zarin/Window.hpp
         src/Zarin/Input/Input.hpp
@@ -40,23 +43,30 @@ add_library(
         src/Zarin/Renderer/VertexArray.hpp
         src/Zarin/Renderer/RendererAPI.hpp
         src/Zarin/Renderer/RenderCommand.hpp
+        src/Zarin/Renderer/Camera.hpp
+        src/Zarin/Renderer/Texture.hpp
         src/Zarin/Renderer/Shader.cpp
         src/Zarin/Renderer/Buffer.cpp
         src/Zarin/Renderer/Renderer.cpp
         src/Zarin/Renderer/VertexArray.cpp
         src/Zarin/Renderer/RendererAPI.cpp
         src/Zarin/Renderer/RenderCommand.cpp
+        src/Zarin/Renderer/Camera.cpp
+        src/Zarin/Renderer/Texture.cpp
 
-        
         # OpenGL platform
         src/Zarin/Platform/OpenGL/OpenGLContext.hpp
         src/Zarin/Platform/OpenGL/OpenGLBuffer.hpp
         src/Zarin/Platform/OpenGL/OpenGLVertexArray.hpp
+        src/Zarin/Platform/OpenGL/OpenGLRendererAPI.hpp
+        src/Zarin/Platform/OpenGL/OpenGLShader.hpp
+        src/Zarin/Platform/OpenGL/OpenGLTexture.hpp
         src/Zarin/Platform/OpenGL/OpenGLContext.cpp
         src/Zarin/Platform/OpenGL/OpenGLBuffer.cpp
         src/Zarin/Platform/OpenGL/OpenGLVertexArray.cpp
-        src/Zarin/Platform/OpenGL/OpenGLRendererAPI.hpp
         src/Zarin/Platform/OpenGL/OpenGLRendererAPI.cpp
+        src/Zarin/Platform/OpenGL/OpenGLShader.cpp
+        src/Zarin/Platform/OpenGL/OpenGLTexture.cpp
 
         # Windows platform
         src/Zarin/Platform/Windows/WindowsWindow.hpp

@@ -1,6 +1,8 @@
 #pragma once
 #include "Log.hpp"
 
+#include <memory>
+
 #define ZRN_ENABLE_ASSERTS
 
 #ifdef ZRN_ENABLE_ASSERTS
@@ -14,3 +16,13 @@
 #define BIT(x) (1 << x)
 
 #define ZRN_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+
+namespace zrn {
+
+template<typename T>
+using Scope = std::unique_ptr<T>;
+
+template<typename T>
+using Ref = std::shared_ptr<T>;
+
+} // namespace zrn

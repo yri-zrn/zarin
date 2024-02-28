@@ -1,19 +1,25 @@
 #pragma once
 
+#include "Zarin/Core.hpp"
+
+#include <string>
+
 namespace zrn {
 
 class Texture {
-private:
-    /* data */
 public:
-    Texture(/* args */);
-    ~Texture();
+    virtual ~Texture() = default;
+    
+    virtual uint32_t GetWidth() const = 0;
+    virtual uint32_t GetHeight() const = 0;
+
+    virtual void Bind(uint32_t slot = 0) const = 0;
 };
 
-Texture::Texture(/* args */) {
-}
-
-Texture::~Texture() {
-}
+class Texture2D : public Texture {
+public:
+    // Texture2D(std::string path);
+    static Ref<Texture2D> Create(const std::string& path);
+};
 
 } // namespace zrn

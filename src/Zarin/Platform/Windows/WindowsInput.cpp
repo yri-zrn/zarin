@@ -147,20 +147,20 @@ bool WindowsInput::IsMouseButtonPressedImpl(MouseButton button) {
     return state & SDL_BUTTON((int)button);
 }
 
-std::pair<float, float> WindowsInput::GetMousePositionImpl() {
+glm::vec2 WindowsInput::GetMousePositionImpl() {
     int x, y;
     SDL_GetMouseState(&x, &y);
     return { x, y };
 }
 
 float WindowsInput::GetMouseXImpl() {
-    auto[x, y] = GetMousePositionImpl();
-    return x;
+    auto pos = GetMousePositionImpl();
+    return pos.x;
 }
 
 float WindowsInput::GetMouseYImpl() {
-    auto[x, y] = GetMousePositionImpl();
-    return y;
+    auto pos = GetMousePositionImpl();
+    return pos.y;
 }
 
 #undef SDL_SWITCH_KEYCODE_TO_SCANCODE

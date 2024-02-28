@@ -8,9 +8,12 @@
 
 #include "ImGui/ImGuiLayer.hpp"
 
+#include "Zarin/Core/Timestep.hpp"
+
 #include "Zarin/Renderer/Shader.hpp"
 #include "Zarin/Renderer/Buffer.hpp"
 #include "Zarin/Renderer/VertexArray.hpp"
+#include "Zarin/Renderer/Camera.hpp"
 
 namespace zrn {
 
@@ -38,6 +41,10 @@ private:
     std::unique_ptr<Window> m_Window;
     bool m_Running = true;
     LayerStack m_LayerStack;
+    
+    float m_LastTime = 0.0f;
+
+    uint64_t last;
 
 private:
     static Application* s_Instance;
