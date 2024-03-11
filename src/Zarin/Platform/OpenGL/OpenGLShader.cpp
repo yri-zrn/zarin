@@ -19,9 +19,19 @@ OpenGLShader::OpenGLShader(const std::string& filepath) {
     std::string source = ReadFile(filepath);
     auto shader_sources = PreProcess(source);
     Compile(shader_sources);
+
+    // Extract name from filepath
+    auto last_slash = filepath.find_last_of("/\\");
+    last_slash = last_slash == std::string::npos ? 0 : last_slash + 1;
+    auto last_dot = filepath.rfind(".");
+    auto count = last_dot == std::string::npos ? filepath.size() - last_slash : last_dot - last_slash;
+
+    m_Name = filepath.substr(last_slash, count);
 }
 
-OpenGLShader::OpenGLShader(const std::string &vertex_source, const std::string &fragment_source) {
+OpenGLShader::OpenGLShader(const std::string& name, const std::string &vertex_source, const std::string &fragment_source) 
+    : m_Name(name) {
+
     std::unordered_map<GLenum, std::string> sources;
     sources[GL_VERTEX_SHADER] = vertex_source;
     sources[GL_FRAGMENT_SHADER] = fragment_source;
@@ -78,7 +88,10 @@ std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::stri
 void OpenGLShader::Compile(std::unordered_map<GLenum, std::string> shader_sources) {
     
     GLuint program = glCreateProgram();
-    std::vector<GLenum> glShaderIDs(shader_sources.size());
+    ZRN_CORE_ASSERT(shader_sources.size() <= 2, "zarin supports only 2 shaders for now");
+
+    std::array<GLenum, 8> shader_IDs;
+    int shader_ID_index = 0;
 
     for (auto&&[shader_type, shader_source] : shader_sources) {
         GLuint shader = glCreateShader(shader_type);
@@ -87,50 +100,51 @@ void OpenGLShader::Compile(std::unordered_map<GLenum, std::string> shader_source
         glShaderSource(shader, 1, &source, 0);
         glCompileShader(shader);
 
-        GLint isCompiled = 0;
-        glGetShaderiv(shader, GL_COMPILE_STATUS, &isCompiled);
-        if(isCompiled == GL_FALSE)
+        GLint is_compiled = 0;
+        glGetShaderiv(shader, GL_COMPILE_STATUS, &is_compiled);
+        if(is_compiled == GL_FALSE)
         {
-            GLint maxLength = 0;
-            glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &maxLength);
+            GLint max_length = 0;
+            glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &max_length);
 
-            std::vector<GLchar> infoLog(maxLength);
-            glGetShaderInfoLog(shader, maxLength, &maxLength, &infoLog[0]);
+            std::vector<GLchar> info_log(max_length);
+            glGetShaderInfoLog(shader, max_length, &max_length, &info_log[0]);
             
             glDeleteShader(shader);
 
-            ZRN_CORE_ERROR((char*)infoLog.data());
+            ZRN_CORE_ERROR((char*)info_log.data());
             ZRN_CORE_ASSERT(false, "Shader compilation failure");
             return;
-            break;
         }
 
         glAttachShader(program, shader);
-        glShaderIDs.push_back(shader);
+
+        shader_IDs[shader_ID_index] = shader;
+        ++shader_ID_index;
     }
 
     glLinkProgram(program);
 
-    GLint isLinked = 0;
-    glGetProgramiv(program, GL_LINK_STATUS, (int*)&isLinked);
-    if (isLinked == GL_FALSE)
+    GLint is_linked = 0;
+    glGetProgramiv(program, GL_LINK_STATUS, (int*)&is_linked);
+    if (is_linked == GL_FALSE)
     {
-        GLint maxLength = 0;
-        glGetProgramiv(program, GL_INFO_LOG_LENGTH, &maxLength);
+        GLint max_length = 0;
+        glGetProgramiv(program, GL_INFO_LOG_LENGTH, &max_length);
 
-        std::vector<GLchar> infoLog(maxLength);
-        glGetProgramInfoLog(program, maxLength, &maxLength, &infoLog[0]);
+        std::vector<GLchar> info_log(max_length);
+        glGetProgramInfoLog(program, max_length, &max_length, &info_log[0]);
         
         glDeleteProgram(program);
-        for (auto id : glShaderIDs)
+        for (auto id : shader_IDs)
             glDeleteShader(id);
 
-        ZRN_CORE_ERROR((char*)infoLog.data());
+        ZRN_CORE_ERROR((char*)info_log.data());
         ZRN_CORE_ASSERT(false, "Shader linking failure");
         return;
     }
 
-    for (auto id : glShaderIDs)
+    for (auto id : shader_IDs)
         glDetachShader(program, id);
 
     m_RendererID = program;

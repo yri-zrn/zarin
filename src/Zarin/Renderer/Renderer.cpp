@@ -29,4 +29,15 @@ void Renderer::Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertex_
     RenderCommand::DrawIndexed(vertex_array);
 }
 
+void Renderer::Draw(const Ref<Shader>& shader, const Ref<Mesh>& mesh, const Ref<Texture2D>& texture) {
+    shader->Bind();
+    texture->Bind();
+
+    std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
+    std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_Transform", mesh->Transform);
+
+    mesh->GetVertexArray()->Bind();
+    RenderCommand::DrawIndexed(mesh->GetVertexArray());
+}
+
 } // namespace zrn

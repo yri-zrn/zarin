@@ -11,6 +11,7 @@ OpenGLTexture2D::OpenGLTexture2D(const std::string& path)
     : m_Path(path) {
     
     SDL_Surface* image = IMG_Load(path.c_str());
+    ZRN_CORE_ASSERT(image, "Failed to load image");
     // SDL_RWops* rwop = SDL_RWFromFile(tex_path, "rb");
     // SDL_Surface* temp_image = IMG_Load_RW(rwop, 1);
     // SDL_Surface* image = SDL_ConvertSurfaceFormat(temp_image, SDL_PIXELFORMAT_ABGR8888, 0);

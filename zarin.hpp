@@ -13,5 +13,8 @@
 #include "src/Zarin/Renderer/Renderer.hpp"
 #include "src/Zarin/Renderer/Camera.hpp"
 #include "src/Zarin/Renderer/Texture.hpp"
+#include "src/Zarin/Renderer/Mesh.hpp"
+
+#include "src/Zarin/AssetManager.hpp"
 
 #include "src/Zarin/EntryPoint.hpp"

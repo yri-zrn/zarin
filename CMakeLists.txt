@@ -14,10 +14,12 @@ add_library(
         src/Zarin/Log.hpp
         src/Zarin/Layer.hpp
         src/Zarin/LayerStack.hpp
+        src/Zarin/AssetManager.hpp
         src/Zarin/Application.cpp
         src/Zarin/Log.cpp
         src/Zarin/Layer.cpp
         src/Zarin/LayerStack.cpp
+        src/Zarin/AssetManager.cpp
 
         # Core
         src/Zarin/Core/Timestep.hpp
@@ -45,6 +47,7 @@ add_library(
         src/Zarin/Renderer/RenderCommand.hpp
         src/Zarin/Renderer/Camera.hpp
         src/Zarin/Renderer/Texture.hpp
+        src/Zarin/Renderer/Mesh.hpp
         src/Zarin/Renderer/Shader.cpp
         src/Zarin/Renderer/Buffer.cpp
         src/Zarin/Renderer/Renderer.cpp
@@ -53,6 +56,7 @@ add_library(
         src/Zarin/Renderer/RenderCommand.cpp
         src/Zarin/Renderer/Camera.cpp
         src/Zarin/Renderer/Texture.cpp
+        src/Zarin/Renderer/Mesh.cpp
 
         # OpenGL platform
         src/Zarin/Platform/OpenGL/OpenGLContext.hpp
@@ -96,6 +100,7 @@ find_package(spdlog REQUIRED)
 find_package(SDL    REQUIRED)
 find_package(glm    REQUIRED)
 find_package(OpenGL REQUIRED)
+find_package(assimp REQUIRED)
 
 target_link_libraries(
     zarin
@@ -104,24 +109,27 @@ target_link_libraries(
         SDL2
         SDL2_image
         ${OPENGL_LIBRARY}
+        assimp::assimp
         
         PUBLIC
+        glad
         spdlog::spdlog
         imgui
         glm
-        glad
     )
 
 target_precompile_headers(zarin
     PRIVATE
+        <vector>
+        <array>
+        <string>
+        <sstream>
+        <unordered_map>
+        <unordered_set>
+    
         <iostream>
         <memory>
         <utility>
         <algorithm>
         <functional>
-
-        <string>
-        <sstream>
-        <unordered_map>
-        <unordered_set>
   )

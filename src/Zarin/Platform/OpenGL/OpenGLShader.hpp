@@ -11,11 +11,13 @@ namespace zrn {
 class OpenGLShader : public Shader {
 public:
     OpenGLShader(const std::string& filepath);
-    OpenGLShader(const std::string& vertex_source, const std::string& fragment_source);
+    OpenGLShader(const std::string& name, const std::string& vertex_source, const std::string& fragment_source);
     virtual ~OpenGLShader();
 
     virtual void Bind() const override;
     virtual void Unbind() const override;
+
+    virtual const std::string& GetName() const override { return m_Name; }
 
     void UploadUniformInt(const std::string& name, int value);
     void UploadUniformFloat(const std::string& name, float value);
@@ -33,7 +35,7 @@ private:
 
 private:
     uint32_t m_RendererID;
-
+    std::string m_Name;
 };
 
 } // namespace zrn

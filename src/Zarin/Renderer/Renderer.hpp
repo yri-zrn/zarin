@@ -5,9 +5,10 @@
 #include "VertexArray.hpp"
 #include "Camera.hpp"
 #include "Shader.hpp"
+#include "Mesh.hpp"
+#include "Texture.hpp"
 
-namespace zrn
-{
+namespace zrn {
 
 class Renderer {
 public:
@@ -17,6 +18,8 @@ public:
     static void EndScene();
 
     static void Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertex_array, const glm::mat4& transform = glm::mat4(1.0f));
+
+    static void Draw(const Ref<Shader>& shader, const Ref<Mesh>& mesh, const Ref<Texture2D>& texture);
 
     inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 
