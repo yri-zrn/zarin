@@ -1,4 +1,4 @@
-#include "WindowsInput.hpp"
+#include "Zarin/Input/Input.hpp"
 
 #include "Zarin/Application.hpp"
 
@@ -134,32 +134,36 @@ SDL_Scancode SDL_KeycodeToScancode(SDL_KeyCode keycode) {
     }
 }
 
-Input* Input::s_Instance = new WindowsInput();
-
-bool WindowsInput::IsKeyPressedImpl(KeyCode keycode) {
+bool Input::IsKeyPressed(KeyCode keycode) {
     const uint8_t* state = SDL_GetKeyboardState(nullptr);
     if (!state) return false;
     return (bool)state[SDL_KeycodeToScancode((SDL_KeyCode)keycode)];
 }
 
-bool WindowsInput::IsMouseButtonPressedImpl(MouseButton button) {
+bool Input::IsMouseButtonPressed(MouseButton button) {
     auto state = SDL_GetMouseState(nullptr, nullptr);
     return state & SDL_BUTTON((int)button);
 }
 
-glm::vec2 WindowsInput::GetMousePositionImpl() {
+glm::vec2 Input::GetMousePosition() {
     int x, y;
     SDL_GetMouseState(&x, &y);
     return { x, y };
 }
 
-float WindowsInput::GetMouseXImpl() {
-    auto pos = GetMousePositionImpl();
+// glm::vec2 Input::GetMouseDelta() {
+//     int x, y;
+//     SDL_GetRelativeMouseState(&x, &y);
+//     return { x, y };
+// }
+
+float Input::GetMouseX() {
+    auto pos = GetMousePosition();
     return pos.x;
 }
 
-float WindowsInput::GetMouseYImpl() {
-    auto pos = GetMousePositionImpl();
+float Input::GetMouseY() {
+    auto pos = GetMousePosition();
     return pos.y;
 }
 

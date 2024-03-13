@@ -16,6 +16,9 @@ public:
     glm::mat4 Transform{ 1.0f };
     glm::vec3 Position{ 0.0f };
 
+    void Bind() const;
+    void Unbind() const;
+
     Ref<VertexArray> GetVertexArray() const { return m_VertexArray; }
 
 private:

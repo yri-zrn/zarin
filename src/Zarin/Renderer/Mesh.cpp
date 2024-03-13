@@ -6,6 +6,7 @@ Mesh::Mesh(std::vector<float>& vertex_data, std::vector<uint32_t>& indices, cons
     : m_VertexData(vertex_data), m_Indices(indices) {
 
     m_VertexArray = zrn::VertexArray::Create();
+    m_VertexArray->Bind();
 
     zrn::Ref<zrn::VertexBuffer> vertex_buffer;
     vertex_buffer = zrn::VertexBuffer::Create(m_VertexData.data(), m_VertexData.size() * sizeof(float));
@@ -18,5 +19,12 @@ Mesh::Mesh(std::vector<float>& vertex_data, std::vector<uint32_t>& indices, cons
     m_VertexArray->SetIndexBuffer(index_buffer);
 }
 
+void Mesh::Bind() const {
+    m_VertexArray->Bind();
+}
+
+void Mesh::Unbind() const {
+    m_VertexArray->Unbind();
+}
 
 } // namespace zrn

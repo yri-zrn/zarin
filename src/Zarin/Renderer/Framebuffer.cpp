@@ -1,13 +1,13 @@
-#include "VertexArray.hpp"
+#include "Framebuffer.hpp"
 
 #include "Renderer.hpp"
-#include "Zarin/Platform/OpenGL/OpenGLVertexArray.hpp"
+#include "Zarin/Platform/OpenGL/OpenGLFramebuffer.hpp"
 
 namespace zrn {
 
-Ref<VertexArray> VertexArray::Create() {
+Ref<Framebuffer> Framebuffer::Create(const FramebufferSpecification& specification) {
     switch (Renderer::GetAPI()) {
-    case RendererAPI::API::OpenGL:   return CreateRef<OpenGLVertexArray>();
+    case RendererAPI::API::OpenGL:   return CreateRef<OpenGLFramebuffer>(specification);
 
     case RendererAPI::API::None:
         ZRN_CORE_ASSERT(false, "RendererAPI::None is currently not supported");

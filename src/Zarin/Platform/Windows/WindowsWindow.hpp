@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Zarin/Window.hpp"
-#include "Zarin/Platform/Windows/WindowsInput.hpp"
+#include "Zarin/Input/Input.hpp"
 #include "Zarin/Renderer/GraphicsContext.hpp"
 
 #define SDL_MAIN_HANDLED
@@ -21,6 +21,10 @@ public:
 
     // Window attributes
     inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
+    
+    // TODO: implement
+    void SetVSync(bool enabled) { }
+    bool IsVSync() const { return true; }
 
     inline virtual void* GetWindowHandle() const override { return (void*)m_WindowHandle; }
 
@@ -40,8 +44,7 @@ private:
 
 private:
     SDL_Window* m_WindowHandle;
-    SDL_Renderer* m_Renderer;
-    GraphicsContext* m_Context;
+    Scope<GraphicsContext> m_Context;
 
     struct WindowData {
         std::string Title;

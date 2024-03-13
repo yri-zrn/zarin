@@ -12,6 +12,10 @@ void OpenGLRendererAPI::Init() {
     glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE);
 }
 
+void OpenGLRendererAPI::SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height) {
+    glViewport(x, y, width, height);
+}
+
 void OpenGLRendererAPI::SetClearColor(const glm::vec4& color) {
     glClearColor(color.r, color.g, color.b, color.a);
 }
@@ -21,6 +25,8 @@ void OpenGLRendererAPI::Clear() {
 }
 
 void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertex_array) {
+    vertex_array->Bind();
+    
     glDrawElements(
         GL_TRIANGLES,
         vertex_array->GetIndexBuffer()->GetCount(),

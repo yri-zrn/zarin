@@ -51,7 +51,8 @@ Ref<Mesh> AssetManager::LoadModel(const std::string& filepath) {
         { zrn::ShaderDataType::Float2, "a_TexCoord" }
     };
 
-    return std::make_shared<Mesh>(vertex_data, indices, layout);
+    auto mesh = CreateRef<Mesh>(vertex_data, indices, layout);
+    return mesh;
 }
 
 } // namespace zrn

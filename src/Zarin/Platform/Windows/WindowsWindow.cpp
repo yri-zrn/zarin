@@ -10,11 +10,9 @@
 
 namespace zrn {
 
-static bool s_SDL2_Initialized = false;
+static uint8_t s_SDL2_WindowCount = 0;
 
-Window* Window::Create(const WindowProps& props) {
-    return new WindowsWindow(props);
-}
+static bool s_SDL2_Initialized = false;
 
 WindowsWindow::WindowsWindow(const WindowProps& props) {
     Init(props);
@@ -40,16 +38,14 @@ void WindowsWindow::Init(const WindowProps& props) {
     auto window_flags = static_cast<SDL_WindowFlags>(SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
     m_WindowHandle = SDL_CreateWindow(props.Title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, props.Width, props.Height, window_flags);
 
-    ZRN_CORE_ASSERT(m_WindowHandle != nullptr, "Failed to create SDL_Window");
-    
-    auto renderer_flags = static_cast<SDL_RendererFlags>(SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
-    m_Renderer = SDL_CreateRenderer(m_WindowHandle, -1, renderer_flags);
+    // SDL_SetHintWithPriority(SDL_HINT_MOUSE_RELATIVE_MODE_WARP, "1", SDL_HINT_OVERRIDE);
+    // SDL_SetRelativeMouseMode(SDL_TRUE);
 
-    ZRN_CORE_ASSERT(m_Renderer != nullptr, "Failed to create SDL_Renderer");
+    ZRN_CORE_ASSERT(m_WindowHandle != nullptr, "Failed to create SDL_Window");
 
     SDL_SetWindowData(m_WindowHandle, "Data", &m_Data);
 
-    m_Context = new OpenGLContext(m_WindowHandle);
+    m_Context = CreateScope<OpenGLContext>(m_WindowHandle);
     m_Context->Init();
 
     // Register Event callbacks
@@ -63,7 +59,6 @@ void WindowsWindow::Init(const WindowProps& props) {
 }
 
 void WindowsWindow::Shutdown() {
-    SDL_DestroyRenderer(m_Renderer);
     SDL_DestroyWindow(m_WindowHandle);
 
     SDL_Quit();
@@ -72,8 +67,8 @@ void WindowsWindow::Shutdown() {
 void WindowsWindow::OnUpdate() {
     m_Context->SwapBuffers();
     
-    // SDL_Event event;
-    // while(SDL_PollEvent(&event) > 0) { }
+    SDL_Event event;
+    while(SDL_PollEvent(&event) > 0) { }
 }
 
 int WindowsWindow::WindowCloseEventWatcher(void* data, SDL_Event* event) {

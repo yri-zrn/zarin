@@ -30,16 +30,24 @@ public:
     void PushLayer(Layer* layer);
     void PushOverlay(Layer* overlay);
 
-    inline Window& GetWindow() { return *m_Window; }
-    inline static Application& Get() { return *s_Instance; }
+    void Close();
+
+    Window& GetWindow() { return *m_Window; }
+    static Application& Get() { return *s_Instance; }
+
+    ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer; }
 
 private:
     bool OnWindowClose(WindowCloseEvent& e);
+    bool OnWindowResize(WindowResizeEvent& e);
 
 private:
-    ImGuiLayer* m_ImGuiLayer;
-    std::unique_ptr<Window> m_Window;
     bool m_Running = true;
+    bool m_Minimized = false;
+
+    ImGuiLayer* m_ImGuiLayer;
+    Scope<Window> m_Window;
+    
     LayerStack m_LayerStack;
     
     float m_LastTime = 0.0f;

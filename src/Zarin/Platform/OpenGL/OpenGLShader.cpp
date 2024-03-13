@@ -88,22 +88,21 @@ std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::stri
 void OpenGLShader::Compile(std::unordered_map<GLenum, std::string> shader_sources) {
     
     GLuint program = glCreateProgram();
-    ZRN_CORE_ASSERT(shader_sources.size() <= 2, "zarin supports only 2 shaders for now");
 
+    ZRN_CORE_ASSERT(shader_sources.size() <= 8, "zarin supports only 8 shaders for now");
     std::array<GLenum, 8> shader_IDs;
     int shader_ID_index = 0;
 
     for (auto&&[shader_type, shader_source] : shader_sources) {
         GLuint shader = glCreateShader(shader_type);
 
-        const GLchar* source = (const GLchar *)shader_source.c_str();
+        const GLchar* source = shader_source.c_str();
         glShaderSource(shader, 1, &source, 0);
         glCompileShader(shader);
 
         GLint is_compiled = 0;
         glGetShaderiv(shader, GL_COMPILE_STATUS, &is_compiled);
-        if(is_compiled == GL_FALSE)
-        {
+        if(is_compiled == GL_FALSE) {
             GLint max_length = 0;
             glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &max_length);
 
@@ -118,9 +117,9 @@ void OpenGLShader::Compile(std::unordered_map<GLenum, std::string> shader_source
         }
 
         glAttachShader(program, shader);
+        shader_IDs[shader_ID_index++] = shader;
 
-        shader_IDs[shader_ID_index] = shader;
-        ++shader_ID_index;
+        // ZRN_CORE_ASSERT(glGetError(), "Error occured");
     }
 
     glLinkProgram(program);
@@ -144,8 +143,10 @@ void OpenGLShader::Compile(std::unordered_map<GLenum, std::string> shader_source
         return;
     }
 
-    for (auto id : shader_IDs)
+    for (auto id : shader_IDs) {
         glDetachShader(program, id);
+        glDeleteShader(id);
+    }
 
     m_RendererID = program;
 }
@@ -158,10 +159,46 @@ void OpenGLShader::Unbind() const {
     glUseProgram(0);
 }
 
+void OpenGLShader::SetInt(const std::string& name, int value) {
+    UploadUniformInt(name, value);
+}
+
+void OpenGLShader::SetIntArray(const std::string& name, int* values, uint32_t count) {
+    UploadUniformIntArray(name, values, count);
+}
+
+void OpenGLShader::SetFloat(const std::string& name, float value) {
+    UploadUniformFloat(name, value);
+}
+
+void OpenGLShader::SetFloat2(const std::string& name, const glm::vec2& value) {
+    UploadUniformFloat2(name, value);
+}
+
+void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& value) {
+    UploadUniformFloat3(name, value);
+}
+
+void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& value) {
+    UploadUniformFloat4(name, value);
+}
+
+void OpenGLShader::SetMat3(const std::string& name, const glm::mat3& matrix) {
+    UploadUniformMat3(name, matrix);
+}
+
+void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& matrix) {
+    UploadUniformMat4(name, matrix);
+}
 
 void OpenGLShader::UploadUniformInt(const std::string& name, int value) {
     GLint location = glGetUniformLocation(m_RendererID, name.c_str());
     glUniform1i(location, value);
+}
+
+void OpenGLShader::UploadUniformIntArray(const std::string& name, int* values, uint32_t count) {
+    GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+    glUniform1iv(location, count, values);
 }
 
 void OpenGLShader::UploadUniformFloat(const std::string& name, float value) {

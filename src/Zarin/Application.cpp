@@ -20,7 +20,7 @@ Application::Application() {
     ZRN_CORE_ASSERT(!s_Instance, "Application already exists");
     s_Instance = this;
 
-    m_Window = std::unique_ptr<Window>(Window::Create());
+    m_Window = Window::Create();
     m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
     m_ImGuiLayer = new ImGuiLayer();
@@ -32,7 +32,7 @@ Application::Application() {
 }
 
 Application::~Application() {
-
+    Renderer::Shutdown();
 }
 
 void Application::Run() {
@@ -41,16 +41,15 @@ void Application::Run() {
         Timestep timestep = (float)(now - last) / SDL_GetPerformanceFrequency();
         last = now;
 
-        RenderCommand::SetClearColor({ 0.4f, 0.5f, 0.9, 1.0f });
-        RenderCommand::Clear();
-
-        for (Layer* layer : m_LayerStack)
-            layer->OnUpdate(timestep);
-        
-        m_ImGuiLayer->Begin();
-        for (Layer* layer : m_LayerStack)
-            layer->OnImGuiRender();
-        m_ImGuiLayer->End();
+        if (!m_Minimized) {
+            for (Layer* layer : m_LayerStack)
+                layer->OnUpdate(timestep);
+            
+            m_ImGuiLayer->Begin();
+            for (Layer* layer : m_LayerStack)
+                layer->OnImGuiRender();
+            m_ImGuiLayer->End();
+        }
 
         m_Window->OnUpdate();
     }
@@ -59,17 +58,30 @@ void Application::Run() {
 void Application::OnEvent(Event& e) {
     EventDispatcher dispatcher{ e };
     dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+    dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
 
-    for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); ) {
-        (*--it)->OnEvent(e);
+    for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it) {
         if (e.Handled)
             break;
+        (*it)->OnEvent(e);
     }
 }
 
 bool Application::OnWindowClose(WindowCloseEvent& e) {
     m_Running = false;
     return true;
+}
+
+bool Application::OnWindowResize(WindowResizeEvent& e) {
+    if (e.GetWidth() == 0 || e.GetHeight() == 0) {
+        m_Minimized = true;
+        return false;
+    }
+
+    m_Minimized = false;
+    Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+
+    return false;
 }
 
 void Application::PushLayer(Layer* layer) {
@@ -80,6 +92,10 @@ void Application::PushLayer(Layer* layer) {
 void Application::PushOverlay(Layer* overlay) {
     m_LayerStack.PushOverlay(overlay);
     overlay->OnAttach();
+}
+
+void Application::Close() {
+    m_Running = false;
 }
 
 } // namespace zrn

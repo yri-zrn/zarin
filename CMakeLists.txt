@@ -9,33 +9,32 @@ add_library(
         # main()
         src/Zarin/EntryPoint.hpp
 
-        # Application, layers, logging
+        # Core
         src/Zarin/Application.hpp
+        src/Zarin/Window.hpp
         src/Zarin/Log.hpp
         src/Zarin/Layer.hpp
         src/Zarin/LayerStack.hpp
         src/Zarin/AssetManager.hpp
         src/Zarin/Application.cpp
+        src/Zarin/Window.cpp
         src/Zarin/Log.cpp
         src/Zarin/Layer.cpp
         src/Zarin/LayerStack.cpp
         src/Zarin/AssetManager.cpp
 
-        # Core
+        # Core definitions
         src/Zarin/Core/Timestep.hpp
-
+        src/Zarin/Input/Input.hpp
+        src/Zarin/Input/KeyCodes.hpp
+        src/Zarin/Input/MouseCodes.hpp
+        
         # Events
         src/Zarin/Events/Event.hpp
         src/Zarin/Events/ApplicationEvent.hpp
         src/Zarin/Events/MouseEvent.hpp
         src/Zarin/Events/KeyEvent.hpp
         src/Zarin/Events/TextEvent.hpp
-
-        # Window, Input polling
-        src/Zarin/Window.hpp
-        src/Zarin/Input/Input.hpp
-        src/Zarin/Input/KeyCodes.hpp
-        src/Zarin/Input/MouseCodes.hpp
 
         # Renderer
         src/Zarin/Renderer/GraphicsContext.hpp
@@ -46,8 +45,10 @@ add_library(
         src/Zarin/Renderer/RendererAPI.hpp
         src/Zarin/Renderer/RenderCommand.hpp
         src/Zarin/Renderer/Camera.hpp
+        src/Zarin/Renderer/CameraController.hpp
         src/Zarin/Renderer/Texture.hpp
         src/Zarin/Renderer/Mesh.hpp
+        src/Zarin/Renderer/Framebuffer.hpp
         src/Zarin/Renderer/Shader.cpp
         src/Zarin/Renderer/Buffer.cpp
         src/Zarin/Renderer/Renderer.cpp
@@ -55,8 +56,10 @@ add_library(
         src/Zarin/Renderer/RendererAPI.cpp
         src/Zarin/Renderer/RenderCommand.cpp
         src/Zarin/Renderer/Camera.cpp
+        src/Zarin/Renderer/CameraController.cpp
         src/Zarin/Renderer/Texture.cpp
         src/Zarin/Renderer/Mesh.cpp
+        src/Zarin/Renderer/Framebuffer.cpp
 
         # OpenGL platform
         src/Zarin/Platform/OpenGL/OpenGLContext.hpp
@@ -65,16 +68,17 @@ add_library(
         src/Zarin/Platform/OpenGL/OpenGLRendererAPI.hpp
         src/Zarin/Platform/OpenGL/OpenGLShader.hpp
         src/Zarin/Platform/OpenGL/OpenGLTexture.hpp
+        src/Zarin/Platform/OpenGL/OpenGLFramebuffer.hpp
         src/Zarin/Platform/OpenGL/OpenGLContext.cpp
         src/Zarin/Platform/OpenGL/OpenGLBuffer.cpp
         src/Zarin/Platform/OpenGL/OpenGLVertexArray.cpp
         src/Zarin/Platform/OpenGL/OpenGLRendererAPI.cpp
         src/Zarin/Platform/OpenGL/OpenGLShader.cpp
         src/Zarin/Platform/OpenGL/OpenGLTexture.cpp
+        src/Zarin/Platform/OpenGL/OpenGLFramebuffer.cpp
 
         # Windows platform
         src/Zarin/Platform/Windows/WindowsWindow.hpp
-        src/Zarin/Platform/Windows/WindowsInput.hpp
         src/Zarin/Platform/Windows/WindowsWindow.cpp
         src/Zarin/Platform/Windows/WindowsInput.cpp
 

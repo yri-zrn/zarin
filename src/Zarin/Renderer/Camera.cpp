@@ -5,9 +5,9 @@
 namespace zrn
 {
 
-PerspectiveCamera::PerspectiveCamera(float FOV_deg, float aspect, float near_plane, float far_plane)
-    : m_ProjectionMatrix( glm::perspective(glm::radians(FOV_deg), aspect, near_plane, far_plane) ),
-      m_ViewMatrix(1.0f) {
+PerspectiveCamera::PerspectiveCamera(float FOV_deg, float aspect_ratio, float near_plane, float far_plane)
+    : m_FOV(FOV_deg), m_ViewMatrix(1.0f), m_NearPlane(near_plane), m_FarPlane(far_plane)
+    , m_ProjectionMatrix( glm::perspective(glm::radians(FOV_deg), aspect_ratio, near_plane, far_plane) ) {
     
     m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
 }
