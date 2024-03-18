@@ -44,6 +44,12 @@ void ShaderLibrary::Add(const Ref<Shader>& shader) {
     Add(shader->GetName(), shader);
 }
 
+void ShaderLibrary::ReloadAll() {
+    for (auto&&[name, shader] : m_Shaders) {
+        shader->Reload();
+    }
+}
+
 Ref<Shader> ShaderLibrary::Load(const std::string& filepath) {
     auto shader = Shader::Create(filepath);
     Add(shader);

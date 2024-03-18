@@ -7,9 +7,11 @@ namespace zrn
 
 void OpenGLRendererAPI::Init() {
     glEnable(GL_DEPTH_TEST);
+    // glEnable(GL_BLEND);
     // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable(GL_BLEND);
-    glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE);
+    // glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE);
+
+    // glEnable(GL_MULTISAMPLE);
 }
 
 void OpenGLRendererAPI::SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height) {
@@ -33,6 +35,13 @@ void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertex_array) {
         GL_UNSIGNED_INT,
         nullptr
     );
+}
+
+void OpenGLRendererAPI::Draw(const Ref<VertexArray>& vertex_array) {
+    vertex_array->Bind();
+    
+    // TODO: fix this
+    glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
 } // namespace zrn

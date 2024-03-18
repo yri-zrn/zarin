@@ -7,6 +7,8 @@
 
 namespace zrn {
 
+namespace Utils {
+
 static GLenum ShaderTypeFromString(const std::string& type) {
     if (type == "vertex")    return GL_VERTEX_SHADER;
     if (type == "fragment")  return GL_FRAGMENT_SHADER;
@@ -15,10 +17,39 @@ static GLenum ShaderTypeFromString(const std::string& type) {
     return 0;
 }
 
-OpenGLShader::OpenGLShader(const std::string& filepath) {
+} // namespace Utils
+
+OpenGLShader::OpenGLShader(const std::string& filepath)
+    : m_Filepath(filepath) {
+    Load(m_Filepath);
+}
+
+OpenGLShader::OpenGLShader(const std::string& name, const std::string &vertex_source, const std::string &fragment_source) 
+    : m_Name(name) {
+
+    std::unordered_map<GLenum, std::string> sources;
+    sources[GL_VERTEX_SHADER] = vertex_source;
+    sources[GL_FRAGMENT_SHADER] = fragment_source;
+
+    m_RendererID = Compile(sources);
+    // auto renderer_ID = Compile(sources);
+    // ZRN_CORE_ASSERT(renderer_ID, "Failed to load shader");
+    // m_RendererID = renderer_ID;
+}
+
+OpenGLShader::~OpenGLShader() {
+    glDeleteProgram(m_RendererID);
+}
+
+void OpenGLShader::Load(const std::string& filepath) {
     std::string source = ReadFile(filepath);
     auto shader_sources = PreProcess(source);
-    Compile(shader_sources);
+    auto renderer_ID = Compile(shader_sources);
+    if (!renderer_ID) {
+        ZRN_CORE_ERROR("Failed to load shader");
+        return;
+    }
+    m_RendererID = renderer_ID;
 
     // Extract name from filepath
     auto last_slash = filepath.find_last_of("/\\");
@@ -29,18 +60,8 @@ OpenGLShader::OpenGLShader(const std::string& filepath) {
     m_Name = filepath.substr(last_slash, count);
 }
 
-OpenGLShader::OpenGLShader(const std::string& name, const std::string &vertex_source, const std::string &fragment_source) 
-    : m_Name(name) {
-
-    std::unordered_map<GLenum, std::string> sources;
-    sources[GL_VERTEX_SHADER] = vertex_source;
-    sources[GL_FRAGMENT_SHADER] = fragment_source;
-
-    Compile(sources);
-}
-
-OpenGLShader::~OpenGLShader() {
-    glDeleteProgram(m_RendererID);
+void OpenGLShader::Reload() {
+    Load(m_Filepath);
 }
 
 std::string OpenGLShader::ReadFile(const std::string& filepath) {
@@ -53,7 +74,6 @@ std::string OpenGLShader::ReadFile(const std::string& filepath) {
         in.seekg(0, std::ios::beg);
         in.read(&result[0], result.size());
         in.close();
-
     }
     else {
         ZRN_CORE_ERROR("Could not open file '{0}'", filepath);
@@ -78,14 +98,14 @@ std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::stri
 
         size_t next_line_pos = source.find_first_not_of("\r\n", eol);
         pos = source.find(type_token, next_line_pos);
-        shader_sources[ShaderTypeFromString(type)] =
+        shader_sources[Utils::ShaderTypeFromString(type)] =
             source.substr(next_line_pos, pos - (next_line_pos == std::string::npos ? source.size() - 1 : next_line_pos));
     }
 
     return shader_sources;
 }
 
-void OpenGLShader::Compile(std::unordered_map<GLenum, std::string> shader_sources) {
+RendererID OpenGLShader::Compile(std::unordered_map<GLenum, std::string> shader_sources) {
     
     GLuint program = glCreateProgram();
 
@@ -112,14 +132,13 @@ void OpenGLShader::Compile(std::unordered_map<GLenum, std::string> shader_source
             glDeleteShader(shader);
 
             ZRN_CORE_ERROR((char*)info_log.data());
-            ZRN_CORE_ASSERT(false, "Shader compilation failure");
-            return;
+            ZRN_CORE_ERROR("Shader compilation failure");
+            // ZRN_CORE_ASSERT(false, "Shader compilation failure");
+            return 0;
         }
 
         glAttachShader(program, shader);
         shader_IDs[shader_ID_index++] = shader;
-
-        // ZRN_CORE_ASSERT(glGetError(), "Error occured");
     }
 
     glLinkProgram(program);
@@ -139,8 +158,9 @@ void OpenGLShader::Compile(std::unordered_map<GLenum, std::string> shader_source
             glDeleteShader(id);
 
         ZRN_CORE_ERROR((char*)info_log.data());
-        ZRN_CORE_ASSERT(false, "Shader linking failure");
-        return;
+        ZRN_CORE_ERROR("Shader linking failure");
+        // ZRN_CORE_ASSERT(false, "Shader linking failure");
+        return 0;
     }
 
     for (auto id : shader_IDs) {
@@ -148,7 +168,7 @@ void OpenGLShader::Compile(std::unordered_map<GLenum, std::string> shader_source
         glDeleteShader(id);
     }
 
-    m_RendererID = program;
+    return program;
 }
 
 void OpenGLShader::Bind() const {

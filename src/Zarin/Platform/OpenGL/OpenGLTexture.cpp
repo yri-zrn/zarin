@@ -23,14 +23,14 @@ OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height)
     glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_T, GL_REPEAT);
 }
 
-OpenGLTexture2D::OpenGLTexture2D(const std::string& path)
-    : m_Path(path) {
+OpenGLTexture2D::OpenGLTexture2D(const std::string& filepath)
+    : m_Path(filepath) {
     
-    SDL_Surface* image = IMG_Load(path.c_str());
+    SDL_Surface* image = IMG_Load(filepath.c_str());
     ZRN_CORE_ASSERT(image, "Failed to load image");
 
     // maybe will be used in the future ?
-    // SDL_RWops* rwop = SDL_RWFromFile(tex_path, "rb");
+    // SDL_RWops* rwop = SDL_RWFromFile(filepath.c_str(), "rb");
     // SDL_Surface* temp_image = IMG_Load_RW(rwop, 1);
     // SDL_Surface* image = SDL_ConvertSurfaceFormat(temp_image, SDL_PIXELFORMAT_ABGR8888, 0);
 

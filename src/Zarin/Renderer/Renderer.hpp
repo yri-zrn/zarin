@@ -24,6 +24,8 @@ public:
 
     // TODO: move to Renderer3D
     static void Draw(const Ref<Shader>& shader, const Ref<Mesh>& mesh, const Ref<Texture2D>& texture);
+    static void Draw(const Ref<Shader>& shader, const Ref<Mesh>& mesh);
+    static void DrawQuad(const Ref<Shader>& shader, const Ref<VertexArray>& vertex_array);
 
     inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 

@@ -36,12 +36,29 @@ void Renderer::Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertex_
     RenderCommand::DrawIndexed(vertex_array);
 }
 
+void Renderer::DrawQuad(const Ref<Shader>& shader, const Ref<VertexArray>& vertex_array) {
+    shader->Bind();
+
+    vertex_array->Bind();
+
+    RenderCommand::Draw(vertex_array);
+}
+
 void Renderer::Draw(const Ref<Shader>& shader, const Ref<Mesh>& mesh, const Ref<Texture2D>& texture) {
     shader->Bind();
     shader->SetMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
     shader->SetMat4("u_Transform", mesh->Transform);
     
     texture->Bind();
+
+    mesh->Bind();
+    RenderCommand::DrawIndexed(mesh->GetVertexArray());
+}
+
+void Renderer::Draw(const Ref<Shader>& shader, const Ref<Mesh>& mesh) {
+    shader->Bind();
+    shader->SetMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
+    shader->SetMat4("u_Transform", mesh->Transform);
 
     mesh->Bind();
     RenderCommand::DrawIndexed(mesh->GetVertexArray());

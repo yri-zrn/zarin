@@ -18,6 +18,10 @@ public:
     virtual void Unbind() const override;
 
     virtual const std::string& GetName() const override { return m_Name; }
+    virtual const std::string& GetFilepath() const override { return m_Filepath; }
+    
+    virtual void Load(const std::string& filepath) override;
+    virtual void Reload() override;
 
     virtual void SetInt(const std::string& name, int value) override;
     virtual void SetIntArray(const std::string& name, int* values, uint32_t count) override;
@@ -41,11 +45,14 @@ private:
 private:
     std::string ReadFile(const std::string& filepath);
     std::unordered_map<GLenum, std::string> PreProcess(const std::string& source);
-    void Compile(std::unordered_map<GLenum, std::string> shader_sources);
+    RendererID Compile(std::unordered_map<GLenum, std::string> shader_sources);
 
 private:
     uint32_t m_RendererID;
     std::string m_Name;
+
+    // For reload
+    std::string m_Filepath;
 };
 
 } // namespace zrn

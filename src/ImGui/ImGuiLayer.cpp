@@ -216,8 +216,8 @@ void ImGuiLayer::OnAttach() {
     //io.ConfigViewportsNoTaskBarIcon = true;
 
     // Setup Dear ImGui style
-    // ImGui::StyleColorsClassic();
-    ImGui::StyleColorsLight();
+    ImGui::StyleColorsClassic();
+    // ImGui::StyleColorsLight();
 
     // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
     ImGuiStyle& style = ImGui::GetStyle();
@@ -279,10 +279,27 @@ void ImGuiLayer::Begin() {
     Application* app = &Application::Get();
     SDL_Window* window = (SDL_Window*)app->GetWindow().GetWindowHandle();
 
+    // TODO: add event pull
     SDL_Event event;
+    std::vector<SDL_Event> events;
     while (SDL_PollEvent(&event)) {
         ImGui_ImplSDL2_ProcessEvent(&event);
+        events.insert(events.begin(), event);
+        // events.push_back(event);
     }
+    
+    for (auto& e : events) {
+        SDL_PushEvent(&e);
+    }
+
+    // SDL_Event events[1];
+    // SDL_PumpEvents();
+    // SDL_PeepEvents(events, 1, SDL_PEEKEVENT, SDL_FIRSTEVENT, SDL_LASTEVENT);
+    // int i = 0;
+    // while(i < 1) {
+    //     ImGui_ImplSDL2_ProcessEvent(&events[i]);
+    //     ++i;
+    // }
 
     // Start the Dear ImGui frame
     ImGui_ImplOpenGL3_NewFrame();

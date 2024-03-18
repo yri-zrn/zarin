@@ -14,6 +14,7 @@ public:
     virtual void SetClearColor(const glm::vec4& color) override;
     virtual void Clear() override;
     virtual void DrawIndexed(const Ref<VertexArray>& vertex_array) override;
+    virtual void Draw(const Ref<VertexArray>& vertex_array) override;
 
 private:
 

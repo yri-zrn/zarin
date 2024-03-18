@@ -24,7 +24,7 @@ public:
 
 public:
     float Speed       = 5.0f;
-    float Sensitivity = 18.0f;
+    float Sensitivity = 30.0f;
 
 private:
     bool OnKeyPressedEvent(KeyPressedEvent& event);
@@ -34,11 +34,11 @@ private:
     bool OnWindowResized(WindowResizeEvent& event);
 
 private:
-    float m_Pitch = 0.0f, m_Yaw = -90.0f;
+    float m_Pitch = -45.0f, m_Yaw = -45.0f;
 
     float m_AspectRatio;
     PerspectiveCamera m_Camera;
-    glm::vec3 m_CameraPosition;
+    glm::vec3 m_CameraPosition = { -8.0f, 10.0f, 8.0f };
     bool m_OrbitCamera = false;
     glm::vec2 m_OldMousePosition;
 };

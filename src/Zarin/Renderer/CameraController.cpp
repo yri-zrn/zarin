@@ -12,7 +12,15 @@ namespace zrn {
 PerspectiveCameraController::PerspectiveCameraController(float FOV_deg, float aspect_ratio, float near_plane, float far_plane)
     : m_AspectRatio(aspect_ratio)
     , m_Camera(FOV_deg, aspect_ratio, near_plane, far_plane) {
+    glm::vec3 new_orientation = {
+        std::cos(glm::radians(m_Pitch)) * std::cos(glm::radians(m_Yaw)),
+        std::sin(glm::radians(m_Pitch)),
+        std::cos(glm::radians(m_Pitch)) * sin(glm::radians(m_Yaw))
+    };
 
+    m_Camera.SetOrientation(new_orientation);
+    
+    m_Camera.SetPosition(m_CameraPosition);
 }
 
 void PerspectiveCameraController::OnUpdate(Timestep ts) {
@@ -36,7 +44,10 @@ void PerspectiveCameraController::OnUpdate(Timestep ts) {
     }
 
     if (m_OrbitCamera) {
+
         glm::vec2 offset = zrn::Input::GetMousePosition() - m_OldMousePosition;
+        // ZRN_CORE_INFO("{0}; {1}", offset.x, offset.y);
+
         m_OldMousePosition = zrn::Input::GetMousePosition();
 
         m_Yaw += offset.x * Sensitivity * (float)ts;
@@ -44,6 +55,8 @@ void PerspectiveCameraController::OnUpdate(Timestep ts) {
 
         if (m_Pitch > 89.0f) m_Pitch = 89.0f;
         if (m_Pitch < -89.0f) m_Pitch = -89.0f;
+
+        // when A and S pressed orientation does not work well (idk why)
 
         glm::vec3 new_orientation = {
             std::cos(glm::radians(m_Pitch)) * std::cos(glm::radians(m_Yaw)),

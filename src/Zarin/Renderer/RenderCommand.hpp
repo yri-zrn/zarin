@@ -27,6 +27,10 @@ public:
         s_RendererAPI->DrawIndexed(vertex_array);
     }
 
+    inline static void Draw(const Ref<VertexArray>& vertex_array) {
+        s_RendererAPI->Draw(vertex_array);
+    }
+
 private:
     static RendererAPI* s_RendererAPI;
 };
