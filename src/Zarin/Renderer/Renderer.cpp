@@ -2,6 +2,7 @@
 
 #include "Zarin/Platform/OpenGL/OpenGLShader.hpp"
 
+
 namespace zrn
 {
 
@@ -23,45 +24,49 @@ void Renderer::BeginScene(PerspectiveCamera& camera) {
     s_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
 }
 
+void Renderer::BeginScene(SceneCamera& camera, const glm::mat4& transform) {
+    s_SceneData->ViewProjectionMatrix = camera.GetProjection() * glm::inverse(transform);
+}
+
 void Renderer::EndScene() {
 
 }
 
-void Renderer::Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertex_array, const glm::mat4& transform) {
+// void Renderer::Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertex_array, const glm::mat4& transform) {
+//     shader->Bind();
+//     shader->SetMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
+//     shader->SetMat4("u_Transform", transform);
+
+//     vertex_array->Bind();
+//     RenderCommand::DrawIndexed(vertex_array);
+// }
+
+// void Renderer::DrawQuad(const Ref<Shader>& shader, const Ref<VertexArray>& vertex_array) {
+//     shader->Bind();
+
+//     vertex_array->Bind();
+
+//     RenderCommand::Draw(vertex_array);
+// }
+
+void Renderer::DrawMesh(const glm::mat4& transform, const Ref<Mesh>& mesh, const Ref<Shader>& shader, int entity) {
     shader->Bind();
     shader->SetMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
     shader->SetMat4("u_Transform", transform);
 
-    vertex_array->Bind();
-    RenderCommand::DrawIndexed(vertex_array);
-}
-
-void Renderer::DrawQuad(const Ref<Shader>& shader, const Ref<VertexArray>& vertex_array) {
-    shader->Bind();
-
-    vertex_array->Bind();
-
-    RenderCommand::Draw(vertex_array);
-}
-
-void Renderer::Draw(const Ref<Shader>& shader, const Ref<Mesh>& mesh, const Ref<Texture2D>& texture) {
-    shader->Bind();
-    shader->SetMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
-    shader->SetMat4("u_Transform", mesh->Transform);
-    
-    texture->Bind();
-
     mesh->Bind();
     RenderCommand::DrawIndexed(mesh->GetVertexArray());
 }
 
-void Renderer::Draw(const Ref<Shader>& shader, const Ref<Mesh>& mesh) {
-    shader->Bind();
-    shader->SetMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
-    shader->SetMat4("u_Transform", mesh->Transform);
+void Renderer::DrawMesh(const glm::mat4& transform, const MeshRendererComponent& mesh_renderer, int entity) {
+    auto& shader = mesh_renderer.ShaderAsset;
+    auto& mesh = mesh_renderer.MeshAsset;
 
-    mesh->Bind();
-    RenderCommand::DrawIndexed(mesh->GetVertexArray());
+    Renderer::DrawMesh(transform, mesh, shader, entity);
+}
+
+void Renderer::DrawScreen(const Ref<Shader> shader) {
+
 }
 
 } // namespace zrn

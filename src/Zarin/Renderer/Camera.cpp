@@ -2,8 +2,7 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-namespace zrn
-{
+namespace zrn {
 
 PerspectiveCamera::PerspectiveCamera(float FOV_deg, float aspect_ratio, float near_plane, float far_plane)
     : m_FOV(FOV_deg), m_ViewMatrix(1.0f), m_NearPlane(near_plane), m_FarPlane(far_plane)

@@ -61,6 +61,17 @@ add_library(
         src/Zarin/Renderer/Mesh.cpp
         src/Zarin/Renderer/Framebuffer.cpp
 
+        # Scene
+        src/Zarin/Scene/Scene.hpp
+        src/Zarin/Scene/Components.hpp
+        src/Zarin/Scene/SceneCamera.hpp
+        src/Zarin/Scene/Entity.hpp
+        src/Zarin/Scene/ScriptableEntity.hpp
+        src/Zarin/Scene/Scene.cpp
+        src/Zarin/Scene/Entity.cpp
+        src/Zarin/Scene/SceneCamera.cpp
+        src/Zarin/Scene/ScriptableEntity.cpp
+
         # OpenGL platform
         src/Zarin/Platform/OpenGL/OpenGLContext.hpp
         src/Zarin/Platform/OpenGL/OpenGLBuffer.hpp
@@ -88,7 +99,7 @@ add_library(
         dependencies/imgui/backends/imgui_impl_sdl2.cpp
         dependencies/imgui/backends/imgui_impl_opengl3.cpp
 
-        # ImGui stuff
+        # ImGui
         src/ImGui/ImGuiLayer.hpp
         src/ImGui/ImGuiLayer.cpp
     )
@@ -98,12 +109,16 @@ target_include_directories(zarin
         src
     )
 
+target_compile_features(zarin PUBLIC cxx_std_20)
+
 add_subdirectory(dependencies)
 
+find_package(OpenGL REQUIRED)
+
+# better add these libraries into dependencies
 find_package(spdlog REQUIRED)
 find_package(SDL    REQUIRED)
 find_package(glm    REQUIRED)
-find_package(OpenGL REQUIRED)
 find_package(assimp REQUIRED)
 
 target_link_libraries(
@@ -114,12 +129,13 @@ target_link_libraries(
         SDL2_image
         ${OPENGL_LIBRARY}
         assimp::assimp
-        
+
         PUBLIC
-        glad
         spdlog::spdlog
+        glad
         imgui
         glm
+        entt
     )
 
 target_precompile_headers(zarin
@@ -136,4 +152,4 @@ target_precompile_headers(zarin
         <utility>
         <algorithm>
         <functional>
-  )
+    )

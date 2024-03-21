@@ -12,7 +12,7 @@ namespace zrn {
 
 class PerspectiveCameraController {
 public:
-    PerspectiveCameraController(float FOV_deg, float aspect_ratio, float near_plane, float far_plane);
+    PerspectiveCameraController(float FOV_deg = 45.0f, float aspect_ratio = 16.0f/9.0f, float near_plane = 0.1f, float far_plane = 1000.0f);
 
     void OnUpdate(Timestep ts);
     void OnEvent(Event& e);

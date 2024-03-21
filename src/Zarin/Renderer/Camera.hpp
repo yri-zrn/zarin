@@ -1,14 +1,25 @@
 #pragma once
 
-// #include <glm/glm.hpp>
-#include <glm/vec2.hpp>
-#include <glm/vec3.hpp>
-#include <glm/mat4x4.hpp>
+#include <glm/glm.hpp>
 
-// #include <glm/gtc/type_ptr.hpp>
+namespace zrn {
 
-namespace zrn
-{
+class Camera {
+public:
+    Camera() = default;
+    Camera(const glm::mat4& projection)
+        : m_Projection(projection) { }
+
+    virtual ~Camera() = default;
+    
+    const glm::mat4& GetProjection() const { return m_Projection; }
+
+    // TODO: add
+    // void SetPerspective();
+    // void SetOrthographic();
+protected:
+    glm::mat4 m_Projection = glm::mat4(1.0f);
+};
 
 class PerspectiveCamera {
 public:

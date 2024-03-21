@@ -18,3 +18,8 @@
 #include "src/Zarin/Renderer/Mesh.hpp"
 
 #include "src/Zarin/AssetManager.hpp"
+
+#include "src/Zarin/Scene/Scene.hpp"
+#include "src/Zarin/Scene/Components.hpp"
+#include "src/Zarin/Scene/Entity.hpp"
+#include "src/Zarin/Scene/ScriptableEntity.hpp"
