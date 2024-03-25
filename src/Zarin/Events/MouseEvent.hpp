@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Event.hpp"
-#include "Zarin/Input/MouseCodes.hpp"
+#include "Events/Event.hpp"
+#include "Input/MouseCodes.hpp"
 
 #include <sstream>
 

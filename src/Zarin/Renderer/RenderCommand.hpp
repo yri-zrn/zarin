@@ -1,7 +1,7 @@
 #pragma once
 
-#include "VertexArray.hpp"
-#include "RendererAPI.hpp"
+#include "Renderer/VertexArray.hpp"
+#include "Renderer/RendererAPI.hpp"
 
 namespace zrn {
 

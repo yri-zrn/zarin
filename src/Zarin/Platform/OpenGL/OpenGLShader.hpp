@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Zarin/Renderer/Shader.hpp"
+#include "Renderer/Shader.hpp"
 
 #include <glad/glad.h>
 

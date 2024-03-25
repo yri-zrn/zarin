@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Zarin/Renderer/VertexArray.hpp"
+#include "Renderer/VertexArray.hpp"
 
 namespace zrn {
 

@@ -1,6 +1,6 @@
-#include "Zarin/Input/Input.hpp"
+#include "Input/Input.hpp"
 
-#include "Zarin/Application.hpp"
+#include "Core/Application.hpp"
 
 #define SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>

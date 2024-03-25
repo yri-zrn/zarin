@@ -1,7 +1,9 @@
 #pragma once
-#include "Log.hpp"
+
+#include "Core/Log.hpp"
 
 #include <memory>
+#include <stdint.h>
 
 #define ZRN_ENABLE_ASSERTS
 

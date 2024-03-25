@@ -1,8 +1,8 @@
-#include "Zarin/Core.hpp"
+#include "Core/Core.hpp"
 #include "Buffer.hpp"
 
-#include "Renderer.hpp"
-#include "Zarin/Platform/OpenGL/OpenGLBuffer.hpp"
+#include "Renderer/Renderer.hpp"
+#include "Platform/OpenGL/OpenGLBuffer.hpp"
 
 namespace zrn {
 

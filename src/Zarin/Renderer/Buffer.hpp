@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstdint>
-#include "Zarin/Core.hpp"
+#include "Core/Core.hpp"
 
 namespace zrn {
 

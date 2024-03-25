@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core.hpp"
+#include "Core/Core.hpp"
 #include "Events/Event.hpp"
 #include "Events/ApplicationEvent.hpp"
 #include "Events/MouseEvent.hpp"

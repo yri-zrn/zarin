@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Core.hpp"
+#include "Core/Core.hpp"
+#include "Core/Timestep.hpp"
 #include "Events/Event.hpp"
-#include "Zarin/Core/Timestep.hpp"
 
 namespace zrn {
 

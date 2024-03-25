@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Zarin/Renderer/VertexArray.hpp"
-#include "Zarin/Renderer/Buffer.hpp"
+#include "Renderer/VertexArray.hpp"
+#include "Renderer/Buffer.hpp"
 
 #include "glm/glm.hpp"
 

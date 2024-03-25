@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Texture.hpp"
-#include "Shader.hpp"
+#include "Renderer/Texture.hpp"
+#include "Renderer/Shader.hpp"
 
 namespace zrn {
 

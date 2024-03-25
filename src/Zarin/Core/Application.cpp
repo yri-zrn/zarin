@@ -1,7 +1,7 @@
 #include "Application.hpp"
 
 #include "Input/Input.hpp"
-#include "Zarin/Renderer/Renderer.hpp"
+#include "Renderer/Renderer.hpp"
 
 #include <iostream>
 

@@ -1,8 +1,9 @@
 #include "WindowsWindow.hpp"
-#include "Zarin/Input/KeyCodes.hpp"
-#include "Zarin/Input/MouseCodes.hpp"
 
-#include "Zarin/Platform/OpenGL/OpenGLContext.hpp"
+#include "Input/KeyCodes.hpp"
+#include "Input/MouseCodes.hpp"
+
+#include "Platform/OpenGL/OpenGLContext.hpp"
 
 #define SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>

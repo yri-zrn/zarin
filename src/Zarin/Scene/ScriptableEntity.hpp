@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Entity.hpp"
+#include "Scene/Entity.hpp"
 
 namespace zrn {
 

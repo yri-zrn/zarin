@@ -1,17 +1,17 @@
 #pragma once
 
-#include "RendererAPI.hpp"
-#include "RenderCommand.hpp"
-#include "VertexArray.hpp"
-#include "Shader.hpp"
-#include "Mesh.hpp"
-#include "Texture.hpp"
-#include "Material.hpp"
-#include "Camera.hpp"
+#include "Renderer/RendererAPI.hpp"
+#include "Renderer/RenderCommand.hpp"
+#include "Renderer/VertexArray.hpp"
+#include "Renderer/Shader.hpp"
+#include "Renderer/Mesh.hpp"
+#include "Renderer/Texture.hpp"
+#include "Renderer/Material.hpp"
+#include "Renderer/Camera.hpp"
 
-#include "Zarin/Scene/Components.hpp"
-#include "Zarin/Scene/SceneCamera.hpp"
-#include "Zarin/Scene/EditorCamera.hpp"
+#include "Scene/Components.hpp"
+#include "Scene/SceneCamera.hpp"
+#include "Scene/ViewportCamera.hpp"
 
 namespace zrn {
 
@@ -23,7 +23,7 @@ public:
     static void OnWindowResize(uint32_t width, uint32_t height);
 
     static void BeginScene(const glm::mat4& transform, Camera& camera);
-    static void BeginScene(EditorCamera& camera);
+    static void BeginScene(ViewportCamera& camera);
     static void EndScene();
 
     // static void Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertex_array, const glm::mat4& transform = glm::mat4(1.0f));

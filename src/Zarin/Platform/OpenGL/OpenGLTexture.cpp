@@ -3,8 +3,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-
-
 namespace zrn {
 
 OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height) 

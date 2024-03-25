@@ -1,7 +1,7 @@
 #include "Framebuffer.hpp"
 
-#include "Renderer.hpp"
-#include "Zarin/Platform/OpenGL/OpenGLFramebuffer.hpp"
+#include "Renderer/Renderer.hpp"
+#include "Platform/OpenGL/OpenGLFramebuffer.hpp"
 
 namespace zrn {
 

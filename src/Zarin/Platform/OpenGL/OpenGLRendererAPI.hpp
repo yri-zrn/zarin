@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Zarin/Renderer/RendererAPI.hpp"
+#include "Renderer/RendererAPI.hpp"
 
 namespace zrn {
 

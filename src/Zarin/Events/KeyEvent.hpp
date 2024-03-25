@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Event.hpp"
-#include "Zarin/Input/KeyCodes.hpp"
+#include "Events/Event.hpp"
+#include "Input/KeyCodes.hpp"
 
 #include <sstream>
 

@@ -1,6 +1,6 @@
 #include "RenderCommand.hpp"
 
-#include "Zarin/Platform/OpenGL/OpenGLRendererAPI.hpp"
+#include "Platform/OpenGL/OpenGLRendererAPI.hpp"
 
 namespace zrn
 {

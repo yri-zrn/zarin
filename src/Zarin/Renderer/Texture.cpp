@@ -1,7 +1,7 @@
 #include "Texture.hpp"
 
-#include "Renderer.hpp"
-#include "Zarin/Platform/OpenGL/OpenGLTexture.hpp"
+#include "Renderer/Renderer.hpp"
+#include "Platform/OpenGL/OpenGLTexture.hpp"
 
 namespace zrn {
 

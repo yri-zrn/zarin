@@ -1,8 +1,8 @@
 #include "SceneCamera.hpp"
 
-#include <glm/gtc/matrix_transform.hpp>
+#include "Renderer/Camera.hpp"
 
-#include "Zarin/Renderer/Camera.hpp"
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace zrn {
 

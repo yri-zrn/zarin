@@ -1,7 +1,6 @@
 #pragma once
 
-namespace zrn
-{
+namespace zrn {
 
 class Timestep {
 public:

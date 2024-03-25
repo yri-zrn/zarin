@@ -1,9 +1,8 @@
 #pragma once
 
-#include "Zarin/Renderer/Mesh.hpp"
+#include "Renderer/Mesh.hpp"
 
 #include <string>
-
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>

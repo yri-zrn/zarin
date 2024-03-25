@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Zarin/Core.hpp"
-#include "Zarin/Renderer/GraphicsContext.hpp"
+#include "Core/Core.hpp"
+#include "Renderer/GraphicsContext.hpp"
 
 #include <glad/glad.h>
 

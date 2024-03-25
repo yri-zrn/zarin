@@ -1,8 +1,8 @@
 #include "Scene.hpp"
-#include "Zarin/Renderer/Renderer.hpp"
 
-#include "Entity.hpp"
-#include "ScriptableEntity.hpp"
+#include "Renderer/Renderer.hpp"
+#include "Scene/Entity.hpp"
+#include "Scene/ScriptableEntity.hpp"
 
 #include <glm/glm.hpp>
 
@@ -53,7 +53,7 @@ Entity Scene::GetPrimaryCameraEntity() {
 }
 
 void Scene::OnBegin() {
-    m_CameraController = CreateRef<EditorCameraController>(&m_Camera);
+    m_CameraController = CreateRef<ViewportCameraController>(&m_Camera);
 }
 
 void Scene::OnEvent(Event& event) {

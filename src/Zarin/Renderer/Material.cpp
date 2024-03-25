@@ -2,6 +2,4 @@
 
 namespace zrn {
 
-
-
 } // namespace zrn

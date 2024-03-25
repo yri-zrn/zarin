@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Zarin/Window.hpp"
-#include "Zarin/Input/Input.hpp"
-#include "Zarin/Renderer/GraphicsContext.hpp"
+#include "Core/Window.hpp"
+#include "Input/Input.hpp"
+#include "Renderer/GraphicsContext.hpp"
 
 #define SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>

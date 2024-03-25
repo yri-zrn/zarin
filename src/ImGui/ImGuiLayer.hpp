@@ -1,15 +1,22 @@
 #pragma once
 
-#include "Zarin/Core.hpp"
-#include "Zarin/Layer.hpp"
-
-#include "Zarin/Events/ApplicationEvent.hpp"
-#include "Zarin/Events/KeyEvent.hpp"
-#include "Zarin/Events/MouseEvent.hpp"
-#include "Zarin/Events/TextEvent.hpp"
+#include "Core/Core.hpp"
+#include "Core/Layer.hpp"
+#include "Events/ApplicationEvent.hpp"
+#include "Events/KeyEvent.hpp"
+#include "Events/MouseEvent.hpp"
+#include "Events/TextEvent.hpp"
 
 #include <imgui.h>
+#include <imgui_spectrum.h>
 #include <ImGuizmo.h>
+
+#include "backends/imgui_impl_sdl2.h"
+#include "backends/imgui_impl_opengl3.h"
+#include <stdio.h>
+#define SDL_MAIN_HANDLED
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_opengl.h>
 
 namespace zrn {
 

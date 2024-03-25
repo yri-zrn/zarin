@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Buffer.hpp"
+#include "Renderer/Buffer.hpp"
 #include <memory>
 
 namespace zrn {

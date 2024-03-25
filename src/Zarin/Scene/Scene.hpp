@@ -1,15 +1,15 @@
 #pragma once
 
-#include "Components.hpp"
-#include "EditorCamera.hpp"
-#include "EditorCameraController.hpp"
+#include "Scene/Components.hpp"
+#include "Scene/ViewportCamera.hpp"
+#include "Scene/ViewportCameraController.hpp"
 
-#include "Zarin/Core.hpp"
-#include "Zarin/Core/Timestep.hpp"
+#include "Core/Core.hpp"
+#include "Core/Timestep.hpp"
 
-#include "Zarin/Renderer/Framebuffer.hpp"
-#include "Zarin/Renderer/VertexArray.hpp"
-#include "Zarin/Renderer/Shader.hpp"
+#include "Renderer/Framebuffer.hpp"
+#include "Renderer/VertexArray.hpp"
+#include "Renderer/Shader.hpp"
 
 // #include "Entity.hpp"
 
@@ -35,7 +35,7 @@ public:
     Entity GetEntityOnScreen(int x, int y);
     
     Entity GetPrimaryCameraEntity();
-    const EditorCamera& GetEditorCamera() const { return m_Camera; }
+    const ViewportCamera& GetViewportCamera() const { return m_Camera; }
 
     void OnBegin();
     void OnEvent(Event& event);
@@ -54,8 +54,8 @@ private:
 private:
     entt::registry m_Registry;
 
-    EditorCamera m_Camera;
-    Ref<EditorCameraController> m_CameraController;
+    ViewportCamera m_Camera;
+    Ref<ViewportCameraController> m_CameraController;
 
     Ref<Framebuffer> m_OutputBuffer;
 

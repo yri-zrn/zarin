@@ -1,7 +1,7 @@
 #include "Shader.hpp"
 
-#include "Zarin/Renderer/Renderer.hpp"
-#include "Zarin/Platform/OpenGL/OpenGLShader.hpp"
+#include "Renderer/Renderer.hpp"
+#include "Platform/OpenGL/OpenGLShader.hpp"
 
 namespace zrn {
 

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Zarin/Core/Timestep.hpp"
-#include "Zarin/Core.hpp"
-#include "Zarin/Renderer/Camera.hpp"
-#include "Zarin/Events/Event.hpp"
+#include "Core/Timestep.hpp"
+#include "Core/Core.hpp"
+#include "Renderer/Camera.hpp"
+#include "Events/Event.hpp"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/glm.hpp>
@@ -11,9 +11,9 @@
 
 namespace zrn {
 
-class EditorCamera : public Camera {
+class ViewportCamera : public Camera {
 public:
-    EditorCamera();
+    ViewportCamera();
 
     const glm::vec3& GetPosition() const { return m_Position; }
     glm::quat GetOrientation() const;
@@ -24,7 +24,7 @@ public:
     const glm::mat4& GetView() const { return m_View; }
     const glm::mat4& GetViewProjection() const { return m_ViewProjection; }
 
-friend class EditorCameraController;
+friend class ViewportCameraController;
 private:
     void UpdatePosition();
     void UpdateProjection();

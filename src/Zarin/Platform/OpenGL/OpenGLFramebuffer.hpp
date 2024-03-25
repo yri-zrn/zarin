@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Zarin/Renderer/Framebuffer.hpp"
+#include "Renderer/Framebuffer.hpp"
 
 namespace zrn {
 

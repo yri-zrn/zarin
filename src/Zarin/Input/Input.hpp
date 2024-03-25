@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Zarin/Core.hpp"
+#include "Core/Core.hpp"
 
-#include "Zarin/Input/KeyCodes.hpp"
-#include "Zarin/Input/MouseCodes.hpp"
+#include "Input/KeyCodes.hpp"
+#include "Input/MouseCodes.hpp"
 
 #include <glm/vec2.hpp>
 

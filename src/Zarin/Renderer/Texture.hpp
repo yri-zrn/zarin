@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Zarin/Core.hpp"
+#include "Core/Core.hpp"
 
 #include <string>
 

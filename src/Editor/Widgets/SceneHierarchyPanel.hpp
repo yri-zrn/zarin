@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Zarin/Core.hpp"
-#include "Zarin/Scene/Scene.hpp"
-#include "Zarin/Scene/Entity.hpp"
+#include "Core/Core.hpp"
+#include "Scene/Scene.hpp"
+#include "Scene/Entity.hpp"
 
 namespace zrn {
 

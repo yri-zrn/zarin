@@ -1,5 +1,5 @@
 #include "OpenGLShader.hpp"
-#include "Zarin/Core.hpp"
+#include "Core/Core.hpp"
 
 #include <fstream>
 

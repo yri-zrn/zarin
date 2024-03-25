@@ -1,17 +1,6 @@
 #include "ImGuiLayer.hpp"
 
-#include "Zarin/Application.hpp"
-
-#include <imgui.h>
-#include <imgui_spectrum.h>
-#include <ImGuizmo.h>
-
-#include "backends/imgui_impl_sdl2.h"
-#include "backends/imgui_impl_opengl3.h"
-#include <stdio.h>
-#define SDL_MAIN_HANDLED
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_opengl.h>
+#include "Core/Application.hpp"
 
 namespace zrn {
 

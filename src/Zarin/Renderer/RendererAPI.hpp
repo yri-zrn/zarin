@@ -1,6 +1,6 @@
 #pragma once
 
-#include "VertexArray.hpp"
+#include "Renderer/VertexArray.hpp"
 
 #include <memory>
 

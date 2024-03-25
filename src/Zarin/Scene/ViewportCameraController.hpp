@@ -1,15 +1,15 @@
 #pragma once
-#include "EditorCamera.hpp"
+#include "Scene/ViewportCamera.hpp"
 #include "Zarin/Events/Event.hpp"
 #include "Zarin/Events/MouseEvent.hpp"
 #include "Zarin/Events/KeyEvent.hpp"
 
 namespace zrn {
 
-class EditorCameraController {
+class ViewportCameraController {
 public:
-    EditorCameraController() = default;
-    EditorCameraController(EditorCamera* camera);
+    ViewportCameraController() = default;
+    ViewportCameraController(ViewportCamera* camera);
 
     void OnUpdate(Timestep ts);
     void OnEvent(Event& event);
@@ -42,7 +42,7 @@ private:
     float m_RotationSpeed;
     float m_ZoomSpeed;
 
-    EditorCamera* m_Camera;
+    ViewportCamera* m_Camera;
     uint32_t m_ViewportWidth = 1280;
     uint32_t m_ViewportHeight = 720;
 };

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Zarin/Renderer/Camera.hpp"
+#include "Renderer/Camera.hpp"
 
 namespace zrn {
 

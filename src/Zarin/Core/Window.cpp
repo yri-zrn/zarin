@@ -1,6 +1,6 @@
 #include "Window.hpp"
 
-#include "Zarin/Platform/Windows/WindowsWindow.hpp"
+#include "Platform/Windows/WindowsWindow.hpp"
 
 namespace zrn {
 

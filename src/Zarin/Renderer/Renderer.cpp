@@ -1,6 +1,6 @@
-#include "Renderer.hpp"
+#include "Renderer/Renderer.hpp"
 
-#include "Zarin/Platform/OpenGL/OpenGLShader.hpp"
+#include "Platform/OpenGL/OpenGLShader.hpp"
 
 
 namespace zrn
@@ -24,7 +24,7 @@ void Renderer::BeginScene(const glm::mat4& transform, Camera& camera) {
     s_SceneData->ViewProjectionMatrix = camera.GetProjection() * glm::inverse(transform);
 }
 
-void Renderer::BeginScene(EditorCamera& camera) {
+void Renderer::BeginScene(ViewportCamera& camera) {
     s_SceneData->ViewProjectionMatrix = camera.GetViewProjection();
 }
 

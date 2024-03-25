@@ -6,13 +6,12 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
 
-#include "Zarin/Core/Timestep.hpp"
-#include "Zarin/Renderer/Mesh.hpp"
-#include "Zarin/Renderer/Shader.hpp"
-#include "Zarin/Renderer/Texture.hpp"
-#include "Zarin/Renderer/Material.hpp"
-
-#include "SceneCamera.hpp"
+#include "Core/Timestep.hpp"
+#include "Renderer/Mesh.hpp"
+#include "Renderer/Shader.hpp"
+#include "Renderer/Texture.hpp"
+#include "Renderer/Material.hpp"
+#include "Scene/SceneCamera.hpp"
 
 #include <concepts>
 #include <type_traits>

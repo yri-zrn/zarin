@@ -1,7 +1,7 @@
 #include "VertexArray.hpp"
 
-#include "Renderer.hpp"
-#include "Zarin/Platform/OpenGL/OpenGLVertexArray.hpp"
+#include "Renderer/Renderer.hpp"
+#include "Platform/OpenGL/OpenGLVertexArray.hpp"
 
 namespace zrn {
 

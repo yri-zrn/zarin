@@ -1,18 +1,15 @@
 #pragma once
 
-#include "Core.hpp"
-
+#include "Core/Core.hpp"
 #include "Events/Event.hpp"
-#include "Window.hpp"
-#include "LayerStack.hpp"
+#include "Core/Window.hpp"
+#include "Core/LayerStack.hpp"
+#include "Core/Timestep.hpp"
+#include "Renderer/Shader.hpp"
+#include "Renderer/Buffer.hpp"
+#include "Renderer/VertexArray.hpp"
 
-#include "ImGui/ImGuiLayer.hpp"
-
-#include "Zarin/Core/Timestep.hpp"
-
-#include "Zarin/Renderer/Shader.hpp"
-#include "Zarin/Renderer/Buffer.hpp"
-#include "Zarin/Renderer/VertexArray.hpp"
+#include "ImGuiLayer.hpp"
 
 namespace zrn {
 

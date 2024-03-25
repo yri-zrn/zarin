@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Zarin/Renderer/Texture.hpp"
+#include "Renderer/Texture.hpp"
 
 #include <glad/glad.h>
 
