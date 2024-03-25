@@ -7,8 +7,8 @@ namespace zrn {
 
 Assimp::Importer* AssetManager::m_Importer = new Assimp::Importer();
 
-Ref<Mesh> AssetManager::LoadModel(const std::string& filepath) {
-    std::vector<float> vertex_data;
+Ref<Mesh> AssetManager::LoadModel(const std::string& filepath, int entity_id) {
+    std::vector<Vertex> vertex_data;
     std::vector<uint32_t> indices;
     BufferLayout layout;
 
@@ -33,11 +33,19 @@ Ref<Mesh> AssetManager::LoadModel(const std::string& filepath) {
             const aiVector3D* normals = mesh->mNormals;
             const aiVector3D* tex_coords = mesh->mTextureCoords[mesh_id];
 
-            vertex_data.insert(vertex_data.end(), {
-                vertex.x, vertex.y, vertex.z,
-                normals[vertex_id].x, normals[vertex_id].y, normals[vertex_id].z,
-                tex_coords[vertex_id].x, 1.0f - tex_coords[vertex_id].y
+            vertex_data.insert(vertex_data.end(),
+            {
+                { vertex.x, vertex.y, vertex.z },
+                { normals[vertex_id].x, normals[vertex_id].y, normals[vertex_id].z },
+                { tex_coords[vertex_id].x, 1.0f - tex_coords[vertex_id].y },
+                entity_id
             });
+
+            // vertex_data.insert(vertex_data.end(), {
+            //     vertex.x, vertex.y, vertex.z,
+            //     normals[vertex_id].x, normals[vertex_id].y, normals[vertex_id].z,
+            //     tex_coords[vertex_id].x, 1.0f - tex_coords[vertex_id].y
+            // });
 
             ++vertex_id;
         }
@@ -53,7 +61,8 @@ Ref<Mesh> AssetManager::LoadModel(const std::string& filepath) {
     layout = {
         { zrn::ShaderDataType::Float3, "a_Position" },
         { zrn::ShaderDataType::Float3, "a_Normal"   },
-        { zrn::ShaderDataType::Float2, "a_TexCoord" }
+        { zrn::ShaderDataType::Float2, "a_TexCoord" },
+        { zrn::ShaderDataType::Int,    "a_EntityID" }
     };
 
     return CreateRef<Mesh>(vertex_data, indices, layout);

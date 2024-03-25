@@ -14,7 +14,6 @@
 #include "src/Zarin/Renderer/Framebuffer.hpp"
 #include "src/Zarin/Renderer/Shader.hpp"
 #include "src/Zarin/Renderer/Camera.hpp"
-#include "src/Zarin/Renderer/CameraController.hpp"
 #include "src/Zarin/Renderer/Mesh.hpp"
 
 #include "src/Zarin/AssetManager.hpp"
@@ -23,3 +22,5 @@
 #include "src/Zarin/Scene/Components.hpp"
 #include "src/Zarin/Scene/Entity.hpp"
 #include "src/Zarin/Scene/ScriptableEntity.hpp"
+#include "src/Zarin/Scene/EditorCamera.hpp"
+// #include "src/Zarin/Scene/EditorCameraController.hpp"

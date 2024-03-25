@@ -23,17 +23,17 @@ enum class ShaderDataType {
 static uint32_t ShaderDataTypeSize(ShaderDataType type) {
     switch (type) {
     case ShaderDataType::None:      break;
-    case ShaderDataType::Float:     return sizeof(float);
-    case ShaderDataType::Float2:    return 2 * sizeof(float);
-    case ShaderDataType::Float3:    return 3 * sizeof(float);
-    case ShaderDataType::Float4:    return 4 * sizeof(float);
-    case ShaderDataType::Mat3:      return 9 * sizeof(float);
+    case ShaderDataType::Float:     return  1 * sizeof(float);
+    case ShaderDataType::Float2:    return  2 * sizeof(float);
+    case ShaderDataType::Float3:    return  3 * sizeof(float);
+    case ShaderDataType::Float4:    return  4 * sizeof(float);
+    case ShaderDataType::Mat3:      return  9 * sizeof(float);
     case ShaderDataType::Mat4:      return 16 * sizeof(float);
-    case ShaderDataType::Int:       return sizeof(int);
-    case ShaderDataType::Int2:      return 2 * sizeof(float);
-    case ShaderDataType::Int3:      return 3 * sizeof(float);
-    case ShaderDataType::Int4:      return 4 * sizeof(float);
-    case ShaderDataType::Bool:      return sizeof(bool);
+    case ShaderDataType::Int:       return  1 * sizeof(int);
+    case ShaderDataType::Int2:      return  2 * sizeof(int);
+    case ShaderDataType::Int3:      return  3 * sizeof(int);
+    case ShaderDataType::Int4:      return  4 * sizeof(int);
+    case ShaderDataType::Bool:      return  1 * sizeof(bool);
     }
 
     ZRN_CORE_ASSERT(false, "Unknown ShaderDataType");
@@ -114,7 +114,7 @@ public:
     virtual const BufferLayout& GetLayout() const = 0;
     virtual void SetLayout(const BufferLayout& layout) = 0;
 
-    static Ref<VertexBuffer> Create(float* vertices, uint32_t size);
+    static Ref<VertexBuffer> Create(void* vertex_data, uint32_t size);
 };
 
 class IndexBuffer {

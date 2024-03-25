@@ -14,9 +14,9 @@ static GLenum TextureTarget(bool multisampled) {
 
 GLenum DataTypeFromTextureFormat(GLenum format) {
     switch (format) {
-    case GL_RGBA8:       return GL_UNSIGNED_BYTE;
-    case GL_RGB16F:      return GL_FLOAT;
-    case GL_RED_INTEGER: return GL_UNSIGNED_BYTE;
+    case GL_RGBA8:   return GL_UNSIGNED_BYTE;
+    case GL_RGB16F:  return GL_FLOAT;
+    case GL_R32I:    return GL_UNSIGNED_BYTE;
     default: ZRN_CORE_ASSERT(false, "Invalid texture format");
     }
     return 0;
@@ -181,9 +181,17 @@ void OpenGLFramebuffer::Invalidate() {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
+int OpenGLFramebuffer::ReadPixel(uint32_t attachment_index, int x, int y) {
+    ZRN_CORE_ASSERT(attachment_index < m_ColorAttachments.size(), "");
+    glReadBuffer(GL_COLOR_ATTACHMENT0 + attachment_index);
+    int pixel_data;
+    glReadPixels(x, y, 1, 1, GL_RED_INTEGER, GL_INT, &pixel_data);
+    return pixel_data;
+}
+
 void OpenGLFramebuffer::Resize(uint32_t width, uint32_t height) {
     if (width == 0 || height == 0 || width > s_MaxFramebufferSize || height > s_MaxFramebufferSize) {
-        ZRN_CORE_WARN("Attempter to resize framebuffer to {0}, {1}", width, height);
+        ZRN_CORE_WARN("Attempted to resize framebuffer to {0}, {1}", width, height);
         return;
     }
 

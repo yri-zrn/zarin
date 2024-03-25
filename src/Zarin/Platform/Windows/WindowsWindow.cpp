@@ -69,8 +69,6 @@ void WindowsWindow::OnUpdate() {
     
     // SDL_PumpEvents();
     SDL_FlushEvents(SDL_FIRSTEVENT, SDL_LASTEVENT);
-    // SDL_Event event;
-    // while(SDL_PollEvent(&event) > 0) { }
 }
 
 int WindowsWindow::WindowCloseEventWatcher(void* data, SDL_Event* event) {

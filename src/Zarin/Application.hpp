@@ -13,7 +13,6 @@
 #include "Zarin/Renderer/Shader.hpp"
 #include "Zarin/Renderer/Buffer.hpp"
 #include "Zarin/Renderer/VertexArray.hpp"
-#include "Zarin/Renderer/Camera.hpp"
 
 namespace zrn {
 

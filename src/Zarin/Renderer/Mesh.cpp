@@ -2,14 +2,14 @@
 
 namespace zrn {
 
-Mesh::Mesh(std::vector<float>& vertex_data, std::vector<uint32_t>& indices, const BufferLayout& layout)
+Mesh::Mesh(std::vector<Vertex>& vertex_data, std::vector<uint32_t>& indices, const BufferLayout& layout)
     : m_VertexData(vertex_data), m_Indices(indices) {
 
     m_VertexArray = zrn::VertexArray::Create();
     m_VertexArray->Bind();
 
     zrn::Ref<zrn::VertexBuffer> vertex_buffer;
-    vertex_buffer = zrn::VertexBuffer::Create(m_VertexData.data(), m_VertexData.size() * sizeof(float));
+    vertex_buffer = zrn::VertexBuffer::Create((void*)m_VertexData.data(), m_VertexData.size() * sizeof(m_VertexData[0]));
     vertex_buffer->SetLayout(layout);
 
     zrn::Ref<zrn::IndexBuffer> index_buffer;

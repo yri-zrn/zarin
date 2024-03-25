@@ -7,7 +7,7 @@ namespace zrn
     
 class OpenGLVertexBuffer : public VertexBuffer {
 public:
-    OpenGLVertexBuffer(float* vertices, uint32_t size);
+    OpenGLVertexBuffer(void* vertex_data, uint32_t size);
     virtual ~OpenGLVertexBuffer() override;
 
     virtual void Bind() const override;

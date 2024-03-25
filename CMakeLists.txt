@@ -16,6 +16,7 @@ add_library(
         src/Zarin/Layer.hpp
         src/Zarin/LayerStack.hpp
         src/Zarin/AssetManager.hpp
+        # 
         src/Zarin/Application.cpp
         src/Zarin/Window.cpp
         src/Zarin/Log.cpp
@@ -38,38 +39,45 @@ add_library(
 
         # Renderer
         src/Zarin/Renderer/GraphicsContext.hpp
+        src/Zarin/Renderer/Camera.hpp
+        # 
         src/Zarin/Renderer/Shader.hpp
         src/Zarin/Renderer/Buffer.hpp
         src/Zarin/Renderer/Renderer.hpp
         src/Zarin/Renderer/VertexArray.hpp
         src/Zarin/Renderer/RendererAPI.hpp
         src/Zarin/Renderer/RenderCommand.hpp
-        src/Zarin/Renderer/Camera.hpp
-        src/Zarin/Renderer/CameraController.hpp
         src/Zarin/Renderer/Texture.hpp
         src/Zarin/Renderer/Mesh.hpp
         src/Zarin/Renderer/Framebuffer.hpp
+        src/Zarin/Renderer/Material.hpp
+        #
         src/Zarin/Renderer/Shader.cpp
         src/Zarin/Renderer/Buffer.cpp
         src/Zarin/Renderer/Renderer.cpp
         src/Zarin/Renderer/VertexArray.cpp
         src/Zarin/Renderer/RendererAPI.cpp
         src/Zarin/Renderer/RenderCommand.cpp
-        src/Zarin/Renderer/Camera.cpp
-        src/Zarin/Renderer/CameraController.cpp
         src/Zarin/Renderer/Texture.cpp
         src/Zarin/Renderer/Mesh.cpp
         src/Zarin/Renderer/Framebuffer.cpp
+        src/Zarin/Renderer/Material.cpp
 
         # Scene
-        src/Zarin/Scene/Scene.hpp
         src/Zarin/Scene/Components.hpp
+        #
+        src/Zarin/Scene/Scene.hpp
         src/Zarin/Scene/SceneCamera.hpp
+        src/Zarin/Scene/EditorCamera.hpp
+        src/Zarin/Scene/EditorCameraController.hpp
         src/Zarin/Scene/Entity.hpp
         src/Zarin/Scene/ScriptableEntity.hpp
+        # 
         src/Zarin/Scene/Scene.cpp
-        src/Zarin/Scene/Entity.cpp
         src/Zarin/Scene/SceneCamera.cpp
+        src/Zarin/Scene/EditorCamera.cpp
+        src/Zarin/Scene/EditorCameraController.cpp
+        src/Zarin/Scene/Entity.cpp
         src/Zarin/Scene/ScriptableEntity.cpp
 
         # OpenGL platform
@@ -80,6 +88,7 @@ add_library(
         src/Zarin/Platform/OpenGL/OpenGLShader.hpp
         src/Zarin/Platform/OpenGL/OpenGLTexture.hpp
         src/Zarin/Platform/OpenGL/OpenGLFramebuffer.hpp
+        # 
         src/Zarin/Platform/OpenGL/OpenGLContext.cpp
         src/Zarin/Platform/OpenGL/OpenGLBuffer.cpp
         src/Zarin/Platform/OpenGL/OpenGLVertexArray.cpp
@@ -90,18 +99,24 @@ add_library(
 
         # Windows platform
         src/Zarin/Platform/Windows/WindowsWindow.hpp
+        # 
         src/Zarin/Platform/Windows/WindowsWindow.cpp
         src/Zarin/Platform/Windows/WindowsInput.cpp
 
         # ImGui backends
         dependencies/imgui/backends/imgui_impl_sdl2.h
         dependencies/imgui/backends/imgui_impl_opengl3.h
+        # 
         dependencies/imgui/backends/imgui_impl_sdl2.cpp
         dependencies/imgui/backends/imgui_impl_opengl3.cpp
 
         # ImGui
         src/ImGui/ImGuiLayer.hpp
         src/ImGui/ImGuiLayer.cpp
+
+        # Panels
+        src/Zarin/Panels/SceneHierarchyPanel.hpp
+        src/Zarin/Panels/SceneHierarchyPanel.cpp
     )
 
 target_include_directories(zarin

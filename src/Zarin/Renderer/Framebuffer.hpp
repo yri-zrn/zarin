@@ -40,6 +40,7 @@ struct FramebufferSpecification {
     bool SwapchainTarget = false;
 };
 
+// should contain clear color?
 class Framebuffer {
 public:
     virtual ~Framebuffer() = default;
@@ -57,6 +58,8 @@ public:
     virtual uint32_t GetColorAttachmentCount() const = 0;
     virtual RendererID GetDepthAttachmentRendererID() const = 0;
 
+    virtual int ReadPixel(uint32_t attachment_index, int x, int y) = 0;
+    
     virtual void Resize(uint32_t width, uint32_t height) = 0;
     virtual void ClearAttachment(uint32_t attachment_index, int value) = 0;
 };

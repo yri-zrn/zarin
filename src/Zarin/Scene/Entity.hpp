@@ -13,11 +13,14 @@ public:
     Entity(const Entity& other) = default;
     ~Entity() = default;
 
+    // should it be private?
+    Entity(entt::entity entity, Scene* scene);
+
     template<typename T, typename... Args>
     T& AddComponent(Args&&... args) {
         ZRN_CORE_ASSERT(!HasComponent<T>(), "Entity does not have component");
         T& component = m_Scene->m_Registry.emplace<T>(m_EntityHandle, std::forward<Args>(args)...);
-        // m_Scene->OnComponentAdded<T>
+        m_Scene->OnComponentAdded<T>(*this, component);
         return component;
     }
 
@@ -41,13 +44,14 @@ public:
 
     template<typename T>
     void RemoveComponent() {
-        ZRN_CORE_ASSERT(!HasComponent<T>(), "Entity does not have component");
+        ZRN_CORE_ASSERT(HasComponent<T>(), "Entity does not have component");
         m_Scene->m_Registry.remove<T>(m_EntityHandle);
     }
 
     operator bool() const { return m_EntityHandle != entt::null; }
     operator entt::entity() const { return m_EntityHandle; }
     operator uint32_t() const { return (uint32_t)m_EntityHandle; }
+    operator int() const { return (int)m_EntityHandle; }
 
     const std::string& GetName() { return GetComponent<TagComponent>().Tag; }
 
@@ -59,10 +63,7 @@ public:
         return !(*this == other);
     }
 
-friend Scene;
-private:
-    Entity(entt::entity entity, Scene* scene);
-
+// friend Scene;
 private:
     entt::entity m_EntityHandle{ entt::null };
     Scene* m_Scene = nullptr;

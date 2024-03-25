@@ -8,6 +8,9 @@
 #include "Zarin/Events/MouseEvent.hpp"
 #include "Zarin/Events/TextEvent.hpp"
 
+#include <imgui.h>
+#include <ImGuizmo.h>
+
 namespace zrn {
 
 class ImGuiLayer : public Layer {

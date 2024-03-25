@@ -10,7 +10,7 @@
 #include "Zarin/Renderer/Mesh.hpp"
 #include "Zarin/Renderer/Shader.hpp"
 #include "Zarin/Renderer/Texture.hpp"
-#include "Zarin/Renderer/Camera.hpp"
+#include "Zarin/Renderer/Material.hpp"
 
 #include "SceneCamera.hpp"
 
@@ -47,9 +47,8 @@ struct TransformComponent {
 };
 
 struct MeshRendererComponent {
-    Ref<Mesh>    MeshAsset;
-    Ref<Shader>  ShaderAsset;
-    Ref<Texture> AlbedoTexture;
+    Ref<zrn::Mesh>     Mesh;
+    Ref<zrn::Material> Material;
 
     MeshRendererComponent() = default;
     MeshRendererComponent(const MeshRendererComponent& other) = default;

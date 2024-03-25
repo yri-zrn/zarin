@@ -8,12 +8,11 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-namespace zrn
-{
+namespace zrn {
 
 class AssetManager {
 public:
-    static Ref<Mesh> LoadModel(const std::string& filepath);
+    static Ref<Mesh> LoadModel(const std::string& filepath, int entity_id);
 
 private:
     static Assimp::Importer* m_Importer;

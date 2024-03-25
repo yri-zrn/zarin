@@ -20,12 +20,12 @@ void Renderer::OnWindowResize(uint32_t width, uint32_t height) {
     RenderCommand::SetViewport(0, 0, width, height);
 }
 
-void Renderer::BeginScene(PerspectiveCamera& camera) {
-    s_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
+void Renderer::BeginScene(const glm::mat4& transform, Camera& camera) {
+    s_SceneData->ViewProjectionMatrix = camera.GetProjection() * glm::inverse(transform);
 }
 
-void Renderer::BeginScene(SceneCamera& camera, const glm::mat4& transform) {
-    s_SceneData->ViewProjectionMatrix = camera.GetProjection() * glm::inverse(transform);
+void Renderer::BeginScene(EditorCamera& camera) {
+    s_SceneData->ViewProjectionMatrix = camera.GetViewProjection();
 }
 
 void Renderer::EndScene() {
@@ -59,9 +59,10 @@ void Renderer::DrawMesh(const glm::mat4& transform, const Ref<Mesh>& mesh, const
 }
 
 void Renderer::DrawMesh(const glm::mat4& transform, const MeshRendererComponent& mesh_renderer, int entity) {
-    auto& shader = mesh_renderer.ShaderAsset;
-    auto& mesh = mesh_renderer.MeshAsset;
+    const auto& shader = mesh_renderer.Material->GetShader();
+    const auto& mesh = mesh_renderer.Mesh;
 
+    mesh_renderer.Material->GetAlbedo()->Bind();
     Renderer::DrawMesh(transform, mesh, shader, entity);
 }
 
